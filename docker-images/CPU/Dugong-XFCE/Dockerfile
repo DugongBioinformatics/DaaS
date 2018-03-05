@@ -61,7 +61,7 @@ RUN apt-get update && apt-get install -y --allow-unauthenticated make grep sed s
     chromium-browser chromium-browser-l10n chromium-codecs-ffmpeg screen mlocate nano asciinema \
     sysstat libssl-dev libsqlite3-dev libbz2-dev libreadline-dev checkinstall libreadline-gplv2-dev \
     libncursesw5-dev tk-dev libgdbm-dev libc6-dev libffi-dev libxslt1-dev libxml2-dev libtinfo-dev \
-    libcurl4-openssl-dev libc-dev-bin libreadline6-dev 
+    libcurl4-openssl-dev libc-dev-bin
 
 # ===================================================================================================
 # Bioinformatics packages
