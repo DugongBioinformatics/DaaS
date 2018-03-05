@@ -11,6 +11,11 @@
 FROM ubuntu:latest
 MAINTAINER Fabiano Menegidio <fabiano.menegidio@biology.bio.br>
 
+# ===================================================================================================
+# Base image
+# ===================================================================================================
+
+# X11 support
 RUN apt-get update && apt-get install -y apt-utils dbus-x11 x11-utils x11-xserver-utils procps psmisc
 
 # OpenGL support
@@ -42,8 +47,20 @@ RUN apt-get install -y --no-install-recommends xfce4-battery-plugin \
     xfce4-cpufreq-plugin xfce4-diskperf-plugin xfce4-fsguard-plugin \
     xfce4-genmon-plugin xfce4-smartbookmark-plugin xfce4-timer-plugin \
     xfce4-verve-plugin xfce4-weather-plugin
+    
 # additional Xfce goodies
 RUN apt-get install -y xfce4-taskmanager gtk3-engines-xfce
+
+# ===================================================================================================
+# Bioinformatics packages
+# ===================================================================================================
+
+
+
+
+# ===================================================================================================
+# Additional configs
+# ===================================================================================================
 
 # clean up
 RUN rm -rf /var/lib/apt/lists/*
