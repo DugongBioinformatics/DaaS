@@ -59,9 +59,9 @@ RUN apt-get update && apt-get install -y --allow-unauthenticated make grep sed s
     build-essential bzip2 ca-certificates vim gdebi-core bash-completion apt-utils openjdk-8-jre ksh \
     openssh-server unzip curl ruby net-tools icedtea-8-plugin zlib1g-dev libqt4-dbus libqt4-network \
     chromium-browser chromium-browser-l10n chromium-codecs-ffmpeg screen mlocate nano asciinema \
-    sysstat libssl-dev libsqlite3-dev libbz2-dev libreadline-dev checkinstall libreadline-gplv2-dev \
+    sysstat libssl-dev libsqlite3-dev libbz2-dev libreadline-dev checkinstall libcurl4-openssl-dev \
     libncursesw5-dev tk-dev libgdbm-dev libc6-dev libffi-dev libxslt1-dev libxml2-dev libtinfo-dev \
-    libcurl4-openssl-dev libc-dev-bin
+    libc-dev-bin
 
 # ===================================================================================================
 # Bioinformatics packages
