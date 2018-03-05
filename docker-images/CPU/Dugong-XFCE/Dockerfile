@@ -93,7 +93,7 @@ ENV PYENV-VIRTUALENV $HOME/.scienv/envs/pyenv/plugins/pyenv-virtualenv/bin
 ENV PYENV-WHICH-EXT $HOME/.scienv/envs/pyenv/plugins/pyenv-which-ext/bin
 ENV PATH $HOME/.scienv/bin:$HOME/.scienv/envs:$PYENV:$PATH
 
-RUN scienv install pyenv \
+RUN $HOME/.scienv/bin/scienv install pyenv \
     && echo 'eval "$(pyenv init -)"' >> $HOME/.bash_profile \
     && echo 'eval "$(pyenv virtualenv-init -)"' >> $HOME/.bash_profile \
     && echo 'export PYENV_VIRTUALENV_DISABLE_PROMPT=1' >> $HOME/.bash_profile \
