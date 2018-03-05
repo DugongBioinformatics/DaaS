@@ -27,7 +27,7 @@ RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 RUN echo "LANG=en_US.UTF-8" > /etc/default/locale
 RUN apt-get install -y locales
 
-# some utils to have proper menus, mime file types etc.
+# Some utils to have proper menus, mime file types etc.
 RUN apt-get install -y --no-install-recommends xdg-utils xdg-user-dirs
 RUN apt-get install -y menu menu-xdg mime-support desktop-file-utils desktop-base
 
@@ -35,10 +35,10 @@ RUN apt-get install -y menu menu-xdg mime-support desktop-file-utils desktop-bas
 RUN apt-get install -y --no-install-recommends xfce4 
 RUN apt-get install -y xfce4-terminal mousepad xfce4-notifyd 
 
-# includes GTK3 broadway support for HTML5 web applications
+# Includes GTK3 broadway support for HTML5 web applications
 RUN apt-get install -y --no-install-recommends libgtk-3-bin
 
-# additional Xfce panel plugins
+# Additional Xfce panel plugins
 RUN apt-get install -y --no-install-recommends xfce4-battery-plugin \
     xfce4-clipman-plugin xfce4-cpugraph-plugin xfce4-datetime-plugin \
     xfce4-netload-plugin xfce4-notes-plugin xfce4-places-plugin \
@@ -48,7 +48,7 @@ RUN apt-get install -y --no-install-recommends xfce4-battery-plugin \
     xfce4-genmon-plugin xfce4-smartbookmark-plugin xfce4-timer-plugin \
     xfce4-verve-plugin xfce4-weather-plugin
     
-# additional Xfce goodies
+# Additional Xfce goodies
 RUN apt-get install -y xfce4-taskmanager gtk3-engines-xfce
 
 # ===================================================================================================
@@ -62,10 +62,10 @@ RUN apt-get install -y xfce4-taskmanager gtk3-engines-xfce
 # Additional configs
 # ===================================================================================================
 
-# clean up
+# Clean up
 RUN rm -rf /var/lib/apt/lists/*
 
-# create startscript 
+# Create startscript 
 RUN echo '#! /bin/bash\n\
 [ -e "$HOME/.config" ] || cp -R /etc/skel/. $HOME/ \n\
 exec startxfce4\n\
