@@ -58,14 +58,56 @@ RUN apt-get install -y xfce4-taskmanager gtk3-engines-xfce
 RUN apt-get update && apt-get install -y --allow-unauthenticated make grep sed sudo dpkg git wget zip \
     build-essential bzip2 ca-certificates vim gdebi-core bash-completion apt-utils openjdk-8-jre ksh \
     openssh-server unzip curl ruby net-tools icedtea-8-plugin zlib1g-dev libqt4-dbus libqt4-network \
-    chromium-browser chromium-browser-l10n chromium-codecs-ffmpeg screen mlocate nano asciinema sysstat
+    chromium-browser chromium-browser-l10n chromium-codecs-ffmpeg screen mlocate nano asciinema \
+    sysstat libssl-dev libsqlite3-dev libbz2-dev libreadline-dev checkinstall libreadline-gplv2-dev \
+    libncursesw5-dev tk-dev libgdbm-dev libc6-dev libffi-dev libxslt1-dev libxml2-dev libtinfo-dev \
+    libcurl4-openssl-dev libc-dev-bin libreadline6-dev 
 
 # ===================================================================================================
 # Bioinformatics packages
 # ===================================================================================================
 
+ENV SCIENV_ROOT $HOME/.scienv
+ENV PATH $HOME/.scienv/bin:$HOME/.scienv/envs:$PATH
 
+RUN git clone https://github.com/LaBiOS/scienv.git $HOME/.scienv \
+        && echo 'export HOME="$HOME"' >> $HOME/.bash_profile \
+        && echo 'export PATH="$HOME/.scienv/bin:$HOME/.scienv/envs:$PATH"' >> $HOME/.bash_profile \
+        && echo 'export SCIENV_ROOT="$HOME/.scienv"' >> $HOME/.bash_profile \
+        && echo 'eval "$(scienv init -)"' >> $HOME/.bash_profile \
+        && echo 'export HOME="$HOME"' >> $HOME/.bashrc \
+        && echo 'export PATH="$HOME/.scienv/bin:$HOME/.scienv/envs:$PATH"' >> $HOME/.bashrc \
+        && echo 'export SCIENV_ROOT="$HOME/.scienv"' >> $HOME/.bashrc \
+        && echo 'eval "$(scienv init -)"' >> $HOME/.bashrc \ 
+        && export PATH="$HOME/.scienv/bin:$HOME/.scienv/envs:$PATH" \
+        && eval "$($HOME/.scienv/bin/scienv init -)" \
+        && /bin/bash -c "exec $SHELL -l"
 
+ENV PYENV_ROOT $HOME/.scienv/envs/pyenv
+ENV PYENV $HOME/.scienv/envs/pyenv/bin:$HOME/.scienv/envs/pyenv/shims:$HOME/.scienv/envs/pyenv/envs:$HOME/.scienv/envs/pyenv:$HOME/.scienv/envs/pyenv/plugins
+ENV PYTHON-BUILD $HOME/.scienv/envs/pyenv/plugins/python-build/bin
+ENV PYENV-DOCTOR $HOME/.scienv/envs/pyenv/plugins/pyenv-doctor/bin
+ENV PYENV-INSTALLER $HOME/.scienv/envs/pyenv/plugins/pyenv-installer/bin
+ENV PYENV-UPDATE $HOME/.scienv/envs/pyenv/plugins/pyenv-update/bin
+ENV PYENV-VIRTUALENV $HOME/.scienv/envs/pyenv/plugins/pyenv-virtualenv/bin
+ENV PYENV-WHICH-EXT $HOME/.scienv/envs/pyenv/plugins/pyenv-which-ext/bin
+ENV PATH $HOME/.scienv/bin:$HOME/.scienv/envs:$PYENV:$PATH
+
+RUN scienv install pyenv \
+    && echo 'eval "$(pyenv init -)"' >> $HOME/.bash_profile \
+    && echo 'eval "$(pyenv virtualenv-init -)"' >> $HOME/.bash_profile \
+    && echo 'export PYENV_VIRTUALENV_DISABLE_PROMPT=1' >> $HOME/.bash_profile \
+    && echo 'export PYENV_ROOT="$HOME/.scienv/envs/pyenv"' >> $HOME/.bash_profile \
+    && echo 'eval "$(pyenv init -)"' >> $HOME/.bashrc \
+    && echo 'eval "$(pyenv virtualenv-init -)"' >> $HOME/.bashrc \
+    && echo 'export PYENV_VIRTUALENV_DISABLE_PROMPT=1' >> $HOME/.bashrc \
+    && echo 'export PYENV_ROOT="$HOME/.scienv/envs/pyenv"' >> $HOME/.bashrc \
+    && eval "$($PYENV_ROOT/bin/pyenv init -)" \
+    && eval "$($PYENV_ROOT/bin/pyenv virtualenv-init -)" \
+    && /bin/bash -c "exec $SHELL -l" \
+    && /bin/bash -c "source $HOME/.bashrc" \
+    && /bin/bash -c "source $HOME/.bash_profile" \
+    && /bin/bash -c "source $PYENV_ROOT/completions/pyenv.bash" 
 
 # ===================================================================================================
 # Additional configs
