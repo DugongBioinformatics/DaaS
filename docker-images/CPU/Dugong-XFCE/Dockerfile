@@ -12,7 +12,7 @@ FROM ubuntu:latest
 MAINTAINER Fabiano Menegidio <fabiano.menegidio@biology.bio.br>
 
 # ===================================================================================================
-# Base image
+# Base packages
 # ===================================================================================================
 
 # X11 support
@@ -50,6 +50,15 @@ RUN apt-get install -y --no-install-recommends xfce4-battery-plugin \
     
 # Additional Xfce goodies
 RUN apt-get install -y xfce4-taskmanager gtk3-engines-xfce
+
+# ===================================================================================================
+# Additional packages
+# ===================================================================================================
+
+RUN apt-get update && apt-get install -y --allow-unauthenticated make grep sed sudo dpkg git wget zip \
+    build-essential bzip2 ca-certificates vim gdebi-core bash-completion apt-utils openjdk-8-jre ksh \
+    openssh-server unzip curl ruby net-tools icedtea-8-plugin zlib1g-dev libqt4-dbus libqt4-network \
+    chromium-browser chromium-browser-l10n chromium-codecs-ffmpeg screen mlocate nano asciinema sysstat
 
 # ===================================================================================================
 # Bioinformatics packages
