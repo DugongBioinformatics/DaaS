@@ -8,13 +8,10 @@
 # Examples: x11docker --desktop dugong/xfce
 #           x11docker dugong/xfce thunar 
 
-FROM debian:stretch
-ENV DEBIAN_FRONTEND noninteractive
+FROM ubuntu:latest
+MAINTAINER Fabiano Menegidio <fabiano.menegidio@biology.bio.br>
 
-RUN apt-get update
-RUN apt-get install -y apt-utils
-RUN apt-get install -y dbus-x11 x11-utils x11-xserver-utils
-RUN apt-get install -y procps psmisc
+RUN apt-get update && apt-get install -y apt-utils dbus-x11 x11-utils x11-xserver-utils procps psmisc
 
 # OpenGL support
 RUN apt-get install -y mesa-utils mesa-utils-extra libxv1
