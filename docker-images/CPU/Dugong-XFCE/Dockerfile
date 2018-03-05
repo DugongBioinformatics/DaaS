@@ -83,32 +83,6 @@ RUN git clone https://github.com/LaBiOS/scienv.git $HOME/.scienv \
         && eval "$($HOME/.scienv/bin/scienv init -)" \
         && /bin/bash -c "exec $SHELL -l"
 
-ENV PYENV_ROOT $HOME/.scienv/envs/pyenv
-ENV PYENV $HOME/.scienv/envs/pyenv/bin:$HOME/.scienv/envs/pyenv/shims:$HOME/.scienv/envs/pyenv/envs:$HOME/.scienv/envs/pyenv:$HOME/.scienv/envs/pyenv/plugins
-ENV PYTHON-BUILD $HOME/.scienv/envs/pyenv/plugins/python-build/bin
-ENV PYENV-DOCTOR $HOME/.scienv/envs/pyenv/plugins/pyenv-doctor/bin
-ENV PYENV-INSTALLER $HOME/.scienv/envs/pyenv/plugins/pyenv-installer/bin
-ENV PYENV-UPDATE $HOME/.scienv/envs/pyenv/plugins/pyenv-update/bin
-ENV PYENV-VIRTUALENV $HOME/.scienv/envs/pyenv/plugins/pyenv-virtualenv/bin
-ENV PYENV-WHICH-EXT $HOME/.scienv/envs/pyenv/plugins/pyenv-which-ext/bin
-ENV PATH $HOME/.scienv/bin:$HOME/.scienv/envs:$PYENV:$PATH
-
-RUN $HOME/.scienv/bin/scienv install pyenv \
-    && echo 'eval "$(pyenv init -)"' >> $HOME/.bash_profile \
-    && echo 'eval "$(pyenv virtualenv-init -)"' >> $HOME/.bash_profile \
-    && echo 'export PYENV_VIRTUALENV_DISABLE_PROMPT=1' >> $HOME/.bash_profile \
-    && echo 'export PYENV_ROOT="$HOME/.scienv/envs/pyenv"' >> $HOME/.bash_profile \
-    && echo 'eval "$(pyenv init -)"' >> $HOME/.bashrc \
-    && echo 'eval "$(pyenv virtualenv-init -)"' >> $HOME/.bashrc \
-    && echo 'export PYENV_VIRTUALENV_DISABLE_PROMPT=1' >> $HOME/.bashrc \
-    && echo 'export PYENV_ROOT="$HOME/.scienv/envs/pyenv"' >> $HOME/.bashrc \
-    && eval "$($PYENV_ROOT/bin/pyenv init -)" \
-    && eval "$($PYENV_ROOT/bin/pyenv virtualenv-init -)" \
-    && /bin/bash -c "exec $SHELL -l" \
-    && /bin/bash -c "source $HOME/.bashrc" \
-    && /bin/bash -c "source $HOME/.bash_profile" \
-    && /bin/bash -c "source $PYENV_ROOT/completions/pyenv.bash" 
-
 # ===================================================================================================
 # Additional configs
 # ===================================================================================================
