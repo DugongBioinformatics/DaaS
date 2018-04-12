@@ -24,22 +24,15 @@
 #
 # See x11docker --help for further options.
 
-FROM ubuntu:xenial
+FROM dugong:daas:base
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-mark hold iptables && \
-    apt-get -y dist-upgrade && apt-get autoremove -y && apt-get clean
-RUN apt-get install -y dbus-x11 procps psmisc
+RUN apt-get update && apt-mark hold iptables \
+    && apt-get -y dist-upgrade && apt-get autoremove -y && apt-get clean \
+    && apt-get install -y dbus-x11 procps psmisc
 
 # OpenGL / MESA
 RUN apt-get install -y mesa-utils mesa-utils-extra libxv1
-
-# Language/locale settings
-#   replace en_US by your desired locale setting, 
-#   for example de_DE for german.
-ENV LANG en_US.UTF-8
-RUN echo $LANG UTF-8 > /etc/locale.gen
-RUN apt-get install -y locales && update-locale --reset LANG=$LANG
 
 # some utils to have proper menus, mime file types etc.
 RUN apt-get install -y --no-install-recommends xdg-utils xdg-user-dirs \
@@ -53,7 +46,7 @@ RUN apt-get update && \
 # utils
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-            dconf-cli gedit gnome-system-monitor gnome-terminal \
+            dconf-cli dconf-editor gedit gnome-system-monitor gnome-terminal \
             pulseaudio sudo synaptic
 
 
@@ -66,7 +59,8 @@ RUN echo '#! /bin/sh\n\
 [ -e "$HOME/.config" ] || cp -R /etc/skel/. $HOME/ \n\
 exec $* \n\
 ' > /usr/local/bin/start 
-RUN chmod +x /usr/local/bin/start 
+RUN chmod +x /usr/local/bin/start \
+    && chown -R $USER:$USER $HOME
 
 ENTRYPOINT ["/usr/local/bin/start"]
 CMD ["cinnamon-session"]
