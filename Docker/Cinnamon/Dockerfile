@@ -65,7 +65,11 @@ exec $* \n\
 RUN chmod +x /usr/local/bin/start \
     && chown -R $USER:$USER $HOME
 
+USER $USER
+WORKDIR $HOME/data
+
 ENTRYPOINT ["/usr/local/bin/start"]
 CMD ["cinnamon-session"]
 
 ENV DEBIAN_FRONTEND newt
+
