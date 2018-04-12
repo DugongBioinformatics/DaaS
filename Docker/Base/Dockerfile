@@ -12,6 +12,13 @@ RUN apt-get update && apt-get install -y --allow-unauthenticated git curl wget v
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && wget --quiet  https://github.com/krallin/tini/releases/download/v0.16.1/tini \
     && mv tini /usr/local/bin/tini && chmod +x /usr/local/bin/tini
+    
+# Language/locale settings
+#   replace en_US by your desired locale setting, 
+#   for example de_DE for german.
+ENV LANG en_US.UTF-8
+RUN echo $LANG UTF-8 > /etc/locale.gen \
+    && apt-get install -y locales && update-locale --reset LANG=$LANG
 
 ############### Create User and Password
 
