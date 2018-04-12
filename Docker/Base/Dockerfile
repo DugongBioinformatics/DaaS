@@ -5,7 +5,9 @@ MAINTAINER Fabiano Menegidio <fabiano.menegidio@biology.bio.br>
 ENV DEBIAN_FRONTEND noninteractive
 ENV SHELL /bin/bash
 
-RUN apt-get update && apt-get install -y --allow-unauthenticated git curl wget vim sudo build-essential pwgen \
+RUN sudo apt-get install linuxmint-keyring \
+    && echo "deb http://packages.linuxmint.com/ sylvia main" >> /etc/apt/sources.list.d/mint.list \
+    && apt-get update && apt-get install -y --allow-unauthenticated git curl wget vim sudo build-essential pwgen \
     fuse automake cmake sed grep dpkg openjdk-8-jre pkg-config ca-certificates mercurial subversion finger \
     p7zip-rar p7zip-full unace unrar zip unzip bzip2 sharutils rar uudeview mpack arj cabextract file-roller \
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
