@@ -22,9 +22,13 @@ RUN apt-key adv --recv-key --keyserver keyserver.ubuntu.com "A5D32F012649A5A9" \
 # Language/locale settings
 #   replace en_US by your desired locale setting, 
 #   for example de_DE for german.
-ENV LANG en_US.UTF-8
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en  
+ENV LC_ALL en_US.UTF-8
+ENV LANG C.UTF-8
 RUN echo $LANG UTF-8 > /etc/locale.gen \
-    && update-locale --reset LANG=$LANG
+    && update-locale --reset LANG=$LANG \
+    && locale-gen en_US.UTF-8 
 
 ############### Create User and Password
 
