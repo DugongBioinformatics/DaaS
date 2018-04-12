@@ -17,7 +17,7 @@ RUN apt-key adv --recv-key --keyserver keyserver.ubuntu.com "A6616109451BBBF2" \
     && echo "deb http://neurodeb.pirsquared.org xenial main contrib non-free" >> /etc/apt/sources.list.d/singularity.list \
     && apt-get update && apt-get install -y --allow-unauthenticated git curl wget vim sudo build-essential pwgen \
     fuse automake cmake sed grep dpkg openjdk-8-jre pkg-config ca-certificates mercurial subversion finger \
-    p7zip-full p7zip-rar unace unrar zip unzip bzip2 sharutils rar uudeview mpack arj   \
+    unrar zip unzip bzip2 rar arj \
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - \ 
     && echo "deb [arch=amd64] https://download.docker.com/linux/debian jessie stable" >> /etc/apt/sources.list.d/docker.list \
