@@ -13,13 +13,15 @@ RUN apt-key adv --recv-key --keyserver keyserver.ubuntu.com "A6616109451BBBF2" \
     && echo "deb http://archive.ubuntu.com/ubuntu xenial-backports main restricted universe multiverse" >> /etc/apt/sources.list.d/ubuntu.list \
     && echo "deb http://security.ubuntu.com/ubuntu/ xenial-security main restricted universe multiverse" >> /etc/apt/sources.list.d/ubuntu.list \
     && echo "deb http://archive.canonical.com/ubuntu/ xenial partner" >> /etc/apt/sources.list.d/ubuntu.list \
-    && echo "deb https://download.docker.com/linux/ubuntu xenial stable" >> /etc/apt/sources.list.d/docker.list \
     && echo "deb http://neurodeb.pirsquared.org data main contrib non-free" >> /etc/apt/sources.list.d/singularity.list \
     && echo "deb http://neurodeb.pirsquared.org xenial main contrib non-free" >> /etc/apt/sources.list.d/singularity.list \
     && apt-get update && apt-get install -y --allow-unauthenticated git curl wget vim sudo build-essential pwgen \
     fuse automake cmake sed grep dpkg openjdk-8-jre pkg-config ca-certificates mercurial subversion finger \
     p7zip-rar p7zip-full unace unrar zip unzip bzip2 sharutils rar uudeview mpack arj   \
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - \ 
+    && echo "deb [arch=amd64] https://download.docker.com/linux/debian jessie stable" >> /etc/apt/sources.list.d/docker.list \
+    && apt-get update && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && wget --quiet  https://github.com/krallin/tini/releases/download/v0.16.1/tini \
     && mv tini /usr/local/bin/tini && chmod +x /usr/local/bin/tini
     
