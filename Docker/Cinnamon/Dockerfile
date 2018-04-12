@@ -32,7 +32,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 
 RUN apt-get update && apt-mark hold iptables && apt-get install -y --allow-unauthenticated \
-    dbus-x11 procps psmisc mesa-utils mesa-utils-extra libxv xdg-utils xdg-user-dirs menu menu-xdg \
+    dbus-x11 procps psmisc mesa-utils mesa-utils-extra libxv1 libxv-dev xdg-utils xdg-user-dirs menu menu-xdg \
     mime-support desktop-file-utils cinnamon cinnamon-l10n dconf-cli dconf-editor gedit gnome-system-monitor \
     gnome-terminal pulseaudio sudo synaptic
 
