@@ -19,9 +19,6 @@ RUN apt-key adv --recv-key --keyserver keyserver.ubuntu.com "A6616109451BBBF2" \
     fuse automake cmake sed grep dpkg openjdk-8-jre pkg-config ca-certificates mercurial subversion finger \
     unrar zip unzip bzip2 rar arj \
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    && curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - \ 
-    && echo "deb [arch=amd64] https://download.docker.com/linux/debian jessie stable" >> /etc/apt/sources.list.d/docker.list \
-    && apt-get update && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && wget --quiet  https://github.com/krallin/tini/releases/download/v0.16.1/tini \
     && mv tini /usr/local/bin/tini && chmod +x /usr/local/bin/tini
     
