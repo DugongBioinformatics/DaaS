@@ -30,28 +30,11 @@ USER root
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-mark hold iptables \
-    && apt-get -y dist-upgrade && apt-get autoremove -y && apt-get clean \
-    && apt-get install -y --allow-unauthenticated dbus-x11 procps psmisc
 
-# OpenGL / MESA
-RUN apt-get install -y --allow-unauthenticated mesa-utils mesa-utils-extra libxv1
-
-# some utils to have proper menus, mime file types etc.
-RUN apt-get install -y --no-install-recommends --allow-unauthenticated xdg-utils xdg-user-dirs \
-    menu menu-xdg mime-support desktop-file-utils
-
-# cinnamon
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends --allow-unauthenticated \
-            cinnamon cinnamon-l10n
-
-# utils
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends --allow-unauthenticated \
-            dconf-cli dconf-editor gedit gnome-system-monitor gnome-terminal \
-            pulseaudio sudo synaptic
-
+RUN apt-get update && apt-mark hold iptables && apt-get install -y --allow-unauthenticated \
+    dbus-x11 procps psmisc mesa-utils mesa-utils-extra libxv xdg-utils xdg-user-dirs menu menu-xdg 
+    mime-support desktop-file-utils cinnamon cinnamon-l10n dconf-cli dconf-editor gedit gnome-system-monitor \
+    gnome-terminal pulseaudio sudo synaptic
 
 # startscript to copy dotfiles from /etc/skel
 # runs either CMD or image command from docker run
