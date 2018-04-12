@@ -25,6 +25,9 @@
 # See x11docker --help for further options.
 
 FROM dugong/daas:base
+
+USER root
+
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-mark hold iptables \
