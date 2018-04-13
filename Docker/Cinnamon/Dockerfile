@@ -29,8 +29,11 @@ MAINTAINER Fabiano Menegidio <fabiano.menegidio@biology.bio.br>
 
 USER root
 
+LABEL com.nvidia.volumes.needed="nvidia_driver"
 ENV DEBIAN_FRONTEND noninteractive
 ENV VIRTUALGL_VERSION 2.5.2
+ENV PATH /usr/local/nvidia/bin:/opt/VirtualGL/bin:${PATH}
+ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
 RUN apt-get update && apt-mark hold iptables && apt-get install -y --allow-unauthenticated \
     dbus-x11 procps psmisc mesa-utils mesa-utils-extra libxv1 libxv-dev xdg-utils xdg-user-dirs menu menu-xdg \
@@ -56,11 +59,6 @@ RUN curl -sSL \
     && dpkg -i virtualgl_*_amd64.deb \
     && /opt/VirtualGL/bin/vglserver_config -config +s +f -t \
     && rm virtualgl_*_amd64.deb
-    
-# nvidia-docker links
-LABEL com.nvidia.volumes.needed="nvidia_driver"
-ENV PATH /usr/local/nvidia/bin:/opt/VirtualGL/bin:${PATH}
-ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
 USER $USER
 WORKDIR $HOME/data
