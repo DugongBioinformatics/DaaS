@@ -25,16 +25,17 @@
 # See x11docker --help for further options.
 
 FROM dugong/daas:base
+MAINTAINER Fabiano Menegidio <fabiano.menegidio@biology.bio.br>
 
 USER root
 
 ENV DEBIAN_FRONTEND noninteractive
-
+ENV VIRTUALGL_VERSION 2.5.2
 
 RUN apt-get update && apt-mark hold iptables && apt-get install -y --allow-unauthenticated \
     dbus-x11 procps psmisc mesa-utils mesa-utils-extra libxv1 libxv-dev xdg-utils xdg-user-dirs menu menu-xdg \
     mime-support desktop-file-utils cinnamon cinnamon-l10n dconf-cli dconf-editor gedit gnome-system-monitor \
-    gnome-terminal pulseaudio sudo synaptic
+    gnome-terminal pulseaudio sudo synaptic libglu1-mesa-dev
 
 # startscript to copy dotfiles from /etc/skel
 # runs either CMD or image command from docker run
@@ -44,9 +45,22 @@ RUN echo '#! /bin/sh\n\
 }\n\
 [ -e "$HOME/.config" ] || cp -R /etc/skel/. $HOME/ \n\
 exec $* \n\
-' > /usr/local/bin/start 
+' > /usr/local/bin/start
+
 RUN chmod +x /usr/local/bin/start \
     && chown -R $USER:$USER $HOME
+
+RUN curl -sSL \
+    https://downloads.sourceforge.net/project/virtualgl/"${VIRTUALGL_VERSION}"/virtualgl_"${VIRTUALGL_VERSION}"_amd64.deb \
+    -o virtualgl_"${VIRTUALGL_VERSION}"_amd64.deb \
+    && dpkg -i virtualgl_*_amd64.deb \
+    && /opt/VirtualGL/bin/vglserver_config -config +s +f -t \
+    && rm virtualgl_*_amd64.deb
+    
+# nvidia-docker links
+LABEL com.nvidia.volumes.needed="nvidia_driver"
+ENV PATH /usr/local/nvidia/bin:/opt/VirtualGL/bin:${PATH}
+ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
 USER $USER
 WORKDIR $HOME/data
