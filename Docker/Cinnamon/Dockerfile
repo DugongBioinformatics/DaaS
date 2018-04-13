@@ -38,7 +38,7 @@ ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_P
 RUN apt-get update && apt-mark hold iptables && apt-get install -y --allow-unauthenticated \
     dbus-x11 procps psmisc mesa-utils mesa-utils-extra libxv1 libxv-dev xdg-utils xdg-user-dirs menu menu-xdg \
     mime-support desktop-file-utils cinnamon cinnamon-l10n dconf-cli dconf-editor gedit gnome-system-monitor \
-    gnome-terminal pulseaudio sudo synaptic libglu1-mesa-dev glxgears
+    gnome-terminal pulseaudio sudo synaptic libglu1-mesa-dev
 
 # startscript to copy dotfiles from /etc/skel
 # runs either CMD or image command from docker run
