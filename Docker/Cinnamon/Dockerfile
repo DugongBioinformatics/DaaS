@@ -98,7 +98,7 @@ RUN curl -sSL \
 USER $USER
 WORKDIR $HOME/data
 
-ENTRYPOINT ["/usr/local/bin/start"]
+#ENTRYPOINT ["/usr/local/bin/start"]
 CMD ["cinnamon-session"]
 
 ENV DEBIAN_FRONTEND newt
