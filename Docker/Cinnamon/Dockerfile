@@ -4,8 +4,8 @@
 # Run cinnamon desktop in docker. 
 # Use x11docker to run image. 
 # Get x11docker from github:
-#   https://github.com/DugongBioinformatics/x11docker 
 #   https://github.com/mviereck/x11docker 
+#   https://github.com/DugongBioinformatics/x11docker 
 #
 # Run desktop with:
 #   x11docker --desktop --dbus-system dugong/cinnamon
