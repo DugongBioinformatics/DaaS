@@ -48,6 +48,19 @@ MAINTAINER Fabiano Menegidio <fabiano.menegidio@biology.bio.br>
 
 ##################################################################################################
 
+LABEL base.image="dugong/daas:base" \
+      version="201804" \
+      name="Dugong" \
+      flavour="Cinnamon CUDA" \
+      base="Ubuntu xenial" \
+      description="Scientific Linux Container" \
+      website="https://fabianomenegidio.github.io/dugong-bioinformatics/" \
+      repository="https://github.com/fabianomenegidio/dugong-bioinformatics" \
+      license="MIT" \
+      tags="Bioinformatics"
+      
+##################################################################################################
+
 USER root
 
 ##################################################################################################
