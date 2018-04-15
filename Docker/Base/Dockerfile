@@ -26,7 +26,7 @@ ENV NVIDIA_REQUIRE_CUDA "cuda>=9.1"
 
 RUN dpkg --configure -a \
     && apt-get update \
-    && apt-get install -y --allow-unauthenticated apt-transport-https software-properties-common \
+    && apt-get install -y -f --allow-unauthenticated apt-transport-https software-properties-common libgtk-3-dev \
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ##################################################################################################
