@@ -79,10 +79,11 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-mark hold iptables && apt-get install -y --allow-unauthenticated \
     dbus-x11 procps psmisc mesa-utils mesa-utils-extra libxv1 xdg-utils xdg-user-dirs \
-    menu menu-xdg mime-support desktop-file-utils kde-plasma-desktop kwin-x11 plasma-workspace-wayland \
-    kwin-wayland-backend-wayland kwin-wayland-backend-x11 at-spi2-core gtk3-engines-breeze kate kcalc \
-    kde-config-screenlocker kde-style-breeze-qt4 kde-style-qtcurve kruler libqt5multimedia5-plugins \
-    pulseaudio qt-at-spi qt5-gtk-platformtheme sound-theme-freedesktop systemsettings vlc xdg-user-dirs \
+    menu menu-xdg mime-support desktop-file-utils neon-desktop plasma-workspace-wayland \
+    kwin-wayland kwin-wayland-backend-x11 kwin-wayland-backend-wayland kwin at-spi2-core \
+    gtk3-engines-breeze kate kcalc kde-config-screenlocker kde-style-breeze-qt4 kde-style-qtcurve \
+    kruler libqt5multimedia5-plugins pulseaudio qt-at-spi sound-theme-freedesktop systemsettings \
+    xdg-user-dirs \
     && apt-get --fix-missing install && apt --fix-broken install \
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && chown -R $USER:$USER $HOME
