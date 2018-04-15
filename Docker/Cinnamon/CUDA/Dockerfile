@@ -21,15 +21,15 @@
 #   https://github.com/DugongBioinformatics/x11docker 
 #
 # Run desktop with:
-#   x11docker --desktop --dbus-system dugong/cinnamon
+#   x11docker --desktop --dbus-system dugong/cinnamon-cuda
 # or with systemd:
-#   x11docker --desktop --systemd dugong/cinnamon
+#   x11docker --desktop --systemd dugong/cinnamon-cuda
 #
 # Run single application:
-#   x11docker dugong/cinnamon nemo
+#   x11docker dugong/cinnamon-cuda nemo
 #
 # Run VNC application:
-#   read Xenv < <(x11docker --desktop --dbus-system --showenv dugong/cinnamon)
+#   read Xenv < <(x11docker --desktop --dbus-system --showenv dugong/cinnamon-cuda)
 #   echo $Xenv
 #   env $Xenv x11vnc -noshm -forever -localhost -rfbport 5910
 #
