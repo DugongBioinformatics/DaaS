@@ -51,7 +51,7 @@ MAINTAINER Fabiano Menegidio <fabiano.menegidio@biology.bio.br>
 LABEL base.image="dugong/daas:base" \
       version="201804" \
       name="Dugong" \
-      flavour="Cinnamon" \
+      flavour="Mate" \
       base="Ubuntu xenial" \
       description="Scientific Linux Container" \
       website="https://fabianomenegidio.github.io/dugong-bioinformatics/" \
