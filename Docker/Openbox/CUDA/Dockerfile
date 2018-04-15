@@ -43,7 +43,7 @@
 # See x11docker --help for further options.
 ##################################################################################################
 
-FROM dugong/daas:base
+FROM dugong/daas:cuda
 MAINTAINER Fabiano Menegidio <fabiano.menegidio@biology.bio.br>
 
 ##################################################################################################
