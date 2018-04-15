@@ -66,7 +66,7 @@ USER root
 ##################################################################################################
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/sbin:/usr/sbin:/usr/dt/bin
+ENV PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/sbin:/usr/sbin:/usr/dt/bin:${PATH}
 
 ##################################################################################################
 
