@@ -60,6 +60,7 @@ RUN apt-get update && apt-mark hold iptables && apt-get install -y --allow-unaut
     dbus-x11 procps psmisc mesa-utils mesa-utils-extra libxv1 libxv-dev xdg-utils xdg-user-dirs menu menu-xdg \
     mime-support desktop-file-utils cinnamon cinnamon-l10n dconf-cli dconf-editor gedit gnome-system-monitor \
     gnome-terminal pulseaudio sudo synaptic libglu1-mesa-dev \
+    && apt-get --fix-missing install && apt --fix-broken install \
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && chown -R $USER:$USER $HOME
     
