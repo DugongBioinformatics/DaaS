@@ -46,7 +46,6 @@ ENV PATH /usr/local/nvidia/bin:/opt/VirtualGL/bin:/usr/local/cuda/bin:${PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 ENV CUDA_VERSION 9.1.85
 ENV CUDA_PKG_VERSION 9-1=$CUDA_VERSION-1
-# nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 ENV NVIDIA_REQUIRE_CUDA "cuda>=9.1"
@@ -57,19 +56,10 @@ RUN apt-get update && apt-mark hold iptables && apt-get install -y --allow-unaut
     dbus-x11 procps psmisc mesa-utils mesa-utils-extra libxv1 libxv-dev xdg-utils xdg-user-dirs menu menu-xdg \
     mime-support desktop-file-utils cinnamon cinnamon-l10n dconf-cli dconf-editor gedit gnome-system-monitor \
     gnome-terminal pulseaudio sudo synaptic libglu1-mesa-dev \
-    && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# startscript to copy dotfiles from /etc/skel
-# runs either CMD or image command from docker run
-RUN echo '#! /bin/sh\n\
-[ -e \$HOME/.cinnamon ] || {\n\
-  dconf write /org/cinnamon/desktop/background/picture-uri \"'file:///usr/share/backgrounds/gnome/Sandstone.jpg'\"\n\
-}\n\
-[ -e "$HOME/.config" ] || cp -R /etc/skel/. $HOME/ \n\
-exec $* \n\
-' > /usr/local/bin/start \
-    && chmod +x /usr/local/bin/start \
+    && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && chown -R $USER:$USER $HOME
+    
+##################################################################################################
     
 # Install CUDA
 
@@ -86,6 +76,8 @@ RUN NVIDIA_GPGKEY_SUM=d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efac
     && echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf \
     echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
 
+##################################################################################################
+
 # Install VIRTUALGL
 
 RUN curl -sSL \
@@ -94,6 +86,8 @@ RUN curl -sSL \
     && dpkg -i virtualgl_*_amd64.deb \
     && /opt/VirtualGL/bin/vglserver_config -config +s +f -t \
     && rm virtualgl_*_amd64.deb
+
+##################################################################################################
 
 USER $USER
 WORKDIR $HOME/data
