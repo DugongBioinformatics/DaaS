@@ -1,7 +1,20 @@
 ##################################################################################################
-# dugong/cinnamon
+# Dugong - Scientific Linux Containers for Bioinformatics
+# ========================================================
+#
+# Current development is led by Fabiano Menegidio.
+#
+# Bioinformatician/Bioinformaticist at the Laboratory of Functional 
+# and Structural Genomics of the Integrated Nucleus of Biotechnology 
+# at the University of Mogi das Cruzes, Brazil.
 # 
-# Run cinnamon desktop in docker. 
+# Contact: fabiano.menegidio@biology.bio.br
+# GitHub: https://github.com/fabianomenegidio
+# GitHub: https://github.com/DugongBioinformatics
+#
+#========================================================
+# RUN DUGONG XFCE4 DESKTOP IN DOCKER:
+#
 # Use x11docker to run image. 
 # Get x11docker from github:
 #   https://github.com/mviereck/x11docker 
@@ -9,12 +22,16 @@
 #
 # Run desktop with:
 #   x11docker --desktop --dbus-system dugong/xfce4
-#  or with systemd:
+# or with systemd:
 #   x11docker --desktop --systemd dugong/xfce4
 #
 # Run single application:
 #   x11docker dugong/xfce4 nemo
 #
+# Run VNC application:
+#   read Xenv < <(x11docker --desktop --dbus-system --showenv dugong/xfce4)
+#   echo $Xenv
+#   env $Xenv x11vnc -noshm -forever -localhost -rfbport 5910
 #
 # Options:
 # Persistent home folder stored on host with   --home
@@ -31,8 +48,16 @@ MAINTAINER Fabiano Menegidio <fabiano.menegidio@biology.bio.br>
 
 ##################################################################################################
 
-LABEL com.nvidia.volumes.needed="nvidia_driver"
-LABEL com.nvidia.cuda.version="${CUDA_VERSION}"
+LABEL base.image="dugong/daas:base" \
+      version="201804" \
+      name="Dugong" \
+      flavour="XFCE4" \
+      base="Ubuntu xenial" \
+      description="Scientific Linux Container" \
+      website="https://fabianomenegidio.github.io/dugong-bioinformatics/" \
+      repository="https://github.com/fabianomenegidio/dugong-bioinformatics" \
+      license="MIT" \
+      tags="Bioinformatics"
 
 ##################################################################################################
 
@@ -41,64 +66,27 @@ USER root
 ##################################################################################################
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV VIRTUALGL_VERSION 2.5.2
-ENV PATH /usr/local/nvidia/bin:/opt/VirtualGL/bin:/usr/local/cuda/bin:${PATH}
-ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
-ENV CUDA_VERSION 9.1.85
-ENV CUDA_PKG_VERSION 9-1=$CUDA_VERSION-1
-# nvidia-container-runtime
-ENV NVIDIA_VISIBLE_DEVICES all
-ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
-ENV NVIDIA_REQUIRE_CUDA "cuda>=9.1"
 
 ##################################################################################################
 
-
-##################################################################################################
-# Install CUDA
-##################################################################################################
-
-RUN NVIDIA_GPGKEY_SUM=d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efacce4ab5 \
-    && NVIDIA_GPGKEY_FPR=ae09fe4bbd223a84b2ccfce3f60f4b3d7fa2af80 \
-    && apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub \
-    && apt-key adv --export --no-emit-version -a $NVIDIA_GPGKEY_FPR | tail -n +5 > cudasign.pub \
-    && echo "$NVIDIA_GPGKEY_SUM  cudasign.pub" | sha256sum -c --strict - && rm cudasign.pub \
-    && echo "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64 /" > /etc/apt/sources.list.d/cuda.list \
-    && echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list \
-    && apt-get update && apt-get install -y --no-install-recommends cuda-cudart-$CUDA_PKG_VERSION \
-    && ln -s cuda-9.1 /usr/local/cuda \
+RUN apt-get update && apt-mark hold iptables && apt-get install -y --allow-unauthenticated \
+    dbus-x11 procps psmisc x11-utils x11-xserver-utils mesa-utils mesa-utils-extra libxv1 \
+    xdg-utils xdg-user-dirs menu menu-xdg mime-support desktop-file-utils desktop-base xfce4 \
+    gtk3-engines-xfce xfce4-notifyd mousepad xfce4-taskmanager xfce4-terminal libgtk-3-bin \
+    xfce4-clipman-plugin xfce4-cpugraph-plugin xfce4-datetime-plugin xfce4-netload-plugin \
+    xfce4-notes-plugin xfce4-places-plugin xfce4-sensors-plugin xfce4-systemload-plugin \
+    xfce4-whiskermenu-plugin xfce4-indicator-plugin xfce4-cpufreq-plugin xfce4-diskperf-plugin \
+    xfce4-fsguard-plugin xfce4-genmon-plugin xfce4-smartbookmark-plugin xfce4-timer-plugin \
+    xfce4-verve-plugin xfce4-weather-plugin \
+    && apt-get --fix-missing install && apt --fix-broken install \
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    && echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf \
-    echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
-
-##################################################################################################
-# Install VIRTUALGL
-##################################################################################################
-
-RUN curl -sSL \
-    https://downloads.sourceforge.net/project/virtualgl/"${VIRTUALGL_VERSION}"/virtualgl_"${VIRTUALGL_VERSION}"_amd64.deb \
-    -o virtualgl_"${VIRTUALGL_VERSION}"_amd64.deb \
-    && dpkg -i virtualgl_*_amd64.deb \
-    && /opt/VirtualGL/bin/vglserver_config -config +s +f -t \
-    && rm virtualgl_*_amd64.deb
-
-
-##################################################################################################
-# Install docker
-##################################################################################################
-
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
-    && apt-key export "9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88" | gpg - \
-    && echo "deb [arch=amd64] https://download.docker.com/linux/debian jessie stable" >> /etc/apt/sources.list.d/docker.list \
-    && apt-get update && apt-get -y -q --no-install-recommends install docker-ce \
-    && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    && chown -R $USER:$USER $HOME
     
-VOLUME /var/lib/docker
-EXPOSE 2375
-
 ##################################################################################################
 
 USER $USER
 WORKDIR $HOME/data
+
+CMD ["startxfce4"]
 
 ENV DEBIAN_FRONTEND newt
