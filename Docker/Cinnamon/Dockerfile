@@ -13,8 +13,8 @@
 # GitHub: https://github.com/DugongBioinformatics
 #
 #========================================================
+# RUN DUGONG CINNAMON DESKTOP IN DOCKER:
 #
-# Run cinnamon desktop in docker. 
 # Use x11docker to run image. 
 # Get x11docker from github:
 #   https://github.com/mviereck/x11docker 
@@ -28,6 +28,10 @@
 # Run single application:
 #   x11docker dugong/cinnamon nemo
 #
+# Run VNC application:
+#   read Xenv < <(x11docker --desktop --dbus-system --showenv dugong/cinnamon)
+#   echo $Xenv
+#   env $Xenv x11vnc -noshm -forever -localhost -rfbport 5910
 #
 # Options:
 # Persistent home folder stored on host with   --home
