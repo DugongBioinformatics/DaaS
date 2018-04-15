@@ -21,15 +21,15 @@
 #   https://github.com/DugongBioinformatics/x11docker 
 #
 # Run desktop with:
-#   x11docker --desktop --dbus-system dugong/xfce4
+#   x11docker --desktop --dbus-system dugong/xfce4-cuda
 # or with systemd:
-#   x11docker --desktop --systemd dugong/xfce4
+#   x11docker --desktop --systemd dugong/xfce4-cuda
 #
 # Run single application:
-#   x11docker dugong/xfce4 nemo
+#   x11docker dugong/xfce4-cuda nemo
 #
 # Run VNC application:
-#   read Xenv < <(x11docker --desktop --dbus-system --showenv dugong/xfce4)
+#   read Xenv < <(x11docker --desktop --dbus-system --showenv dugong/xfce4-cuda)
 #   echo $Xenv
 #   env $Xenv x11vnc -noshm -forever -localhost -rfbport 5910
 #
