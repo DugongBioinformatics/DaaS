@@ -24,7 +24,8 @@ ENV NVIDIA_REQUIRE_CUDA "cuda>=9.1"
 
 ##################################################################################################
 
-RUN apt-get update \
+RUN dpkg --configure -a \
+    && apt-get update \
     && apt-get install -y --allow-unauthenticated apt-transport-https software-properties-common \
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
