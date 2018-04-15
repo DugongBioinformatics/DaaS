@@ -13,7 +13,7 @@
 # GitHub: https://github.com/DugongBioinformatics
 #
 #========================================================
-# RUN DUGONG CINNAMON DESKTOP IN DOCKER:
+# RUN DUGONG MATE DESKTOP IN DOCKER:
 #
 # Use x11docker to run image. 
 # Get x11docker from github:
@@ -21,15 +21,15 @@
 #   https://github.com/DugongBioinformatics/x11docker 
 #
 # Run desktop with:
-#   x11docker --desktop --dbus-system dugong/cinnamon
+#   x11docker --desktop --dbus-system dugong/mate
 # or with systemd:
-#   x11docker --desktop --systemd dugong/cinnamon
+#   x11docker --desktop --systemd dugong/mate
 #
 # Run single application:
-#   x11docker dugong/cinnamon nemo
+#   x11docker dugong/mate nemo
 #
 # Run VNC application:
-#   read Xenv < <(x11docker --desktop --dbus-system --showenv dugong/cinnamon)
+#   read Xenv < <(x11docker --desktop --dbus-system --showenv dugong/mate)
 #   echo $Xenv
 #   env $Xenv x11vnc -noshm -forever -localhost -rfbport 5910
 #
