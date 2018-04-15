@@ -66,13 +66,15 @@ USER root
 ##################################################################################################
 
 ENV DEBIAN_FRONTEND noninteractive
+ENV PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/sbin:/usr/sbin:/usr/dt/bin
 
 ##################################################################################################
 
-RUN apt-get update && apt-mark hold iptables && apt-get install -y --allow-unauthenticated \
-    dbus-x11 procps psmisc mesa-utils mesa-utils-extra libxv1 libxv-dev xdg-utils xdg-user-dirs menu menu-xdg \
-    mime-support desktop-file-utils cinnamon cinnamon-l10n dconf-cli dconf-editor gedit gnome-system-monitor \
-    gnome-terminal pulseaudio sudo synaptic libglu1-mesa-dev \
+RUN wget -O - http://sparkylinux.org/repo/sparkylinux.gpg.key | apt-key add - \
+    && echo "deb https://sparkylinux.org/repo/ testing main" >/etc/apt/sources.list.d/sparky.list \
+    && apt-get update && apt-mark hold iptables && apt-get install -y --allow-unauthenticated \
+    dbus-x11 procps psmisc xdg-utils xdg-user-dirs menu menu-xdg mime-support desktop-file-utils \
+    cde-desktop \
     && apt-get --fix-missing install && apt --fix-broken install \
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && chown -R $USER:$USER $HOME
@@ -82,6 +84,6 @@ RUN apt-get update && apt-mark hold iptables && apt-get install -y --allow-unaut
 USER $USER
 WORKDIR $HOME/data
 
-CMD ["cinnamon-session"]
+CMD ["/usr/dt/bin/startxsession.sh"]
 
 ENV DEBIAN_FRONTEND newt
