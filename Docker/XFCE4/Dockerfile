@@ -82,6 +82,20 @@ RUN curl -sSL \
     && /opt/VirtualGL/bin/vglserver_config -config +s +f -t \
     && rm virtualgl_*_amd64.deb
 
+
+##################################################################################################
+# Install docker
+##################################################################################################
+
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
+    && apt-key export "9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88" | gpg - \
+    && echo "deb [arch=amd64] https://download.docker.com/linux/debian jessie stable" >> /etc/apt/sources.list.d/docker.list \
+    && apt-get update && apt-get -y -q --no-install-recommends install docker-ce \
+    && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    
+VOLUME /var/lib/docker
+EXPOSE 2375
+
 ##################################################################################################
 
 USER $USER
