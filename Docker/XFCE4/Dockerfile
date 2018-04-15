@@ -54,7 +54,9 @@ ENV NVIDIA_REQUIRE_CUDA "cuda>=9.1"
 ##################################################################################################
 
 
+##################################################################################################
 # Install CUDA
+##################################################################################################
 
 RUN NVIDIA_GPGKEY_SUM=d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efacce4ab5 \
     && NVIDIA_GPGKEY_FPR=ae09fe4bbd223a84b2ccfce3f60f4b3d7fa2af80 \
@@ -69,7 +71,9 @@ RUN NVIDIA_GPGKEY_SUM=d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efac
     && echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf \
     echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
 
+##################################################################################################
 # Install VIRTUALGL
+##################################################################################################
 
 RUN curl -sSL \
     https://downloads.sourceforge.net/project/virtualgl/"${VIRTUALGL_VERSION}"/virtualgl_"${VIRTUALGL_VERSION}"_amd64.deb \
@@ -78,5 +82,9 @@ RUN curl -sSL \
     && /opt/VirtualGL/bin/vglserver_config -config +s +f -t \
     && rm virtualgl_*_amd64.deb
 
+##################################################################################################
+
 USER $USER
 WORKDIR $HOME/data
+
+ENV DEBIAN_FRONTEND newt
