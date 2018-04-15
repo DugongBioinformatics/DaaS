@@ -22,7 +22,7 @@
 #
 # Run desktop with:
 #   x11docker --desktop --dbus-system dugong/cinnamon
-#  or with systemd:
+# or with systemd:
 #   x11docker --desktop --systemd dugong/cinnamon
 #
 # Run single application:
