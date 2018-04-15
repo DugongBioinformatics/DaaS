@@ -73,7 +73,7 @@ ENV PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/sbin:/usr/sbi
 RUN wget -O - http://sparkylinux.org/repo/sparkylinux.gpg.key | apt-key add - \
     && echo "deb https://sparkylinux.org/repo/ testing main" >/etc/apt/sources.list.d/sparky.list \
     && apt-get update && apt-mark hold iptables && apt-get install -y --allow-unauthenticated \
-    dbus-x11 procps psmisc xdg-utils xdg-user-dirs menu menu-xdg libjpeg62-dev, libjpeg-dev, libjpeg8-dev \
+    dbus-x11 procps psmisc xdg-utils xdg-user-dirs menu menu-xdg libjpeg62-dev libjpeg-dev libjpeg8-dev \
     libjpeg-turbo8-dev mime-support desktop-file-utils cde-desktop \
     && apt-get --fix-missing install && apt --fix-broken install \
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
