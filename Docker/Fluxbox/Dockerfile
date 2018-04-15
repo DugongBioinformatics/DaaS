@@ -70,7 +70,8 @@ ENV DEBIAN_FRONTEND noninteractive
 ##################################################################################################
 
 RUN apt-get update && apt-mark hold iptables && apt-get install -y --allow-unauthenticated \
-    fluxbox eterm \
+    dbus-x11 procps psmisc mesa-utils mesa-utils-extra libxv1 libxv-dev xdg-utils xdg-user-dirs \
+    menu menu-xdg mime-support fluxbox eterm \
     && apt-get --fix-missing install && apt --fix-broken install \
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && chown -R $USER:$USER $HOME
