@@ -43,7 +43,8 @@ RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
     && echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable" >> /etc/apt/sources.list.d/docker.list \
     && apt-get update && apt-get -y -q --no-install-recommends install docker-ce \
     && apt-get --fix-missing install && apt --fix-broken install \
-    && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && systemctl enable docker && service docker start
     
 VOLUME /var/lib/docker
 EXPOSE 2375
