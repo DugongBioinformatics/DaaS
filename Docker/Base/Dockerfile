@@ -25,7 +25,8 @@ ENV NVIDIA_REQUIRE_CUDA "cuda>=9.1"
 ##################################################################################################
 
 RUN apt-get update \
-    && apt-get install -y --allow-unauthenticated apt-transport-https software-properties-common libgtk-3-dev \
+    && apt-get install -y --allow-unauthenticated apt-transport-https software-properties-common libgtk-3-bin \
+    libgtk-3-common libgtk-3-0:amd64 libgtk-3-dev \
     && apt-get --fix-missing install && apt --fix-broken install \
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
