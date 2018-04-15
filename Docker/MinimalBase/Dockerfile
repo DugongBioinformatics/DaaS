@@ -22,8 +22,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV SHELL /bin/bash
 
 RUN apt-key adv --recv-key --keyserver keyserver.ubuntu.com "A5D32F012649A5A9" \
-    && apt-key adv --recv-key --keyserver keyserver.ubuntu.com "A6616109451BBBF2" \
-    && echo "deb http://packages.linuxmint.com sylvia main upstream import backport" >> /etc/apt/sources.list.d/mint.list \
+    && echo "deb http://mirrors.kernel.org/ubuntu xenial main" >> /etc/apt/sources.list.d/ubuntu.list \
     && echo "deb http://archive.ubuntu.com/ubuntu xenial main restricted universe multiverse" >> /etc/apt/sources.list.d/ubuntu.list \
     && echo "deb http://archive.ubuntu.com/ubuntu xenial-updates main restricted universe multiverse" >> /etc/apt/sources.list.d/ubuntu.list \
     && echo "deb http://archive.ubuntu.com/ubuntu xenial-backports main restricted universe multiverse" >> /etc/apt/sources.list.d/ubuntu.list \
