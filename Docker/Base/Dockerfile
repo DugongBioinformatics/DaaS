@@ -1,74 +1,66 @@
-###########################################################################
-# Dugong - Scientific Linux Containers for Bioinformatics
-# ========================================================
-#
-# Current development is led by Fabiano Menegidio.
-#
-# Bioinformatician/Bioinformaticist at the Laboratory of Functional 
-# and Structural Genomics of the Integrated Nucleus of Biotechnology 
-# at the University of Mogi das Cruzes, Brazil.
-# 
-# Contact: fabiano.menegidio@biology.bio.br
-# GitHub: https://github.com/fabianomenegidio
-# GitHub: https://github.com/DugongBioinformatics
-#
-###########################################################################
-
-FROM ubuntu:xenial
+FROM dugong/daas:minimal
 MAINTAINER Fabiano Menegidio <fabiano.menegidio@biology.bio.br>
 
-############### Environment config
+##################################################################################################
+
+LABEL com.nvidia.volumes.needed="nvidia_driver"
+LABEL com.nvidia.cuda.version="${CUDA_VERSION}"
+
+##################################################################################################
+
+USER root
+
+##################################################################################################
+
 ENV DEBIAN_FRONTEND noninteractive
-ENV SHELL /bin/bash
+ENV VIRTUALGL_VERSION 2.5.2
+ENV PATH /usr/local/nvidia/bin:/opt/VirtualGL/bin:/usr/local/cuda/bin:${PATH}
+ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
+ENV CUDA_VERSION 9.1.85
+ENV CUDA_PKG_VERSION 9-1=$CUDA_VERSION-1
+ENV NVIDIA_VISIBLE_DEVICES all
+ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
+ENV NVIDIA_REQUIRE_CUDA "cuda>=9.1"
 
-RUN apt-key adv --recv-key --keyserver keyserver.ubuntu.com "A5D32F012649A5A9" \
-    && apt-key adv --recv-key --keyserver keyserver.ubuntu.com "A6616109451BBBF2" \
-    && echo "deb http://packages.linuxmint.com sylvia main upstream import backport" >> /etc/apt/sources.list.d/mint.list \
-    && echo "deb http://archive.ubuntu.com/ubuntu xenial main restricted universe multiverse" >> /etc/apt/sources.list.d/ubuntu.list \
-    && echo "deb http://archive.ubuntu.com/ubuntu xenial-updates main restricted universe multiverse" >> /etc/apt/sources.list.d/ubuntu.list \
-    && echo "deb http://archive.ubuntu.com/ubuntu xenial-backports main restricted universe multiverse" >> /etc/apt/sources.list.d/ubuntu.list \
-    && echo "deb http://security.ubuntu.com/ubuntu/ xenial-security main restricted universe multiverse" >> /etc/apt/sources.list.d/ubuntu.list \
-    && echo "deb http://archive.canonical.com/ubuntu/ xenial partner" >> /etc/apt/sources.list.d/ubuntu.list \
-    && apt-get update && apt-get install -y --allow-unauthenticated git curl wget vim sudo build-essential pwgen \
-    fuse automake cmake sed grep dpkg openjdk-8-jre pkg-config ca-certificates mercurial subversion finger \
-    unrar zip unzip bzip2 rar arj locales xterm fakeroot dh-make gnupg2 \
+##################################################################################################
+# Install CUDA
+##################################################################################################
+
+RUN NVIDIA_GPGKEY_SUM=d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efacce4ab5 \
+    && NVIDIA_GPGKEY_FPR=ae09fe4bbd223a84b2ccfce3f60f4b3d7fa2af80 \
+    && apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub \
+    && apt-key adv --export --no-emit-version -a $NVIDIA_GPGKEY_FPR | tail -n +5 > cudasign.pub \
+    && echo "$NVIDIA_GPGKEY_SUM  cudasign.pub" | sha256sum -c --strict - && rm cudasign.pub \
+    && echo "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64 /" > /etc/apt/sources.list.d/cuda.list \
+    && echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list \
+    && apt-get update && apt-get install -y --no-install-recommends cuda-cudart-$CUDA_PKG_VERSION \
+    && ln -s cuda-9.1 /usr/local/cuda \
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    && wget --quiet  https://github.com/krallin/tini/releases/download/v0.16.1/tini \
-    && mv tini /usr/local/bin/tini && chmod +x /usr/local/bin/tini
+    && echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf \
+    echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
+
+##################################################################################################
+# Install VIRTUALGL
+##################################################################################################
+
+RUN curl -sSL \
+    https://downloads.sourceforge.net/project/virtualgl/"${VIRTUALGL_VERSION}"/virtualgl_"${VIRTUALGL_VERSION}"_amd64.deb \
+    -o virtualgl_"${VIRTUALGL_VERSION}"_amd64.deb \
+    && dpkg -i virtualgl_*_amd64.deb \
+    && /opt/VirtualGL/bin/vglserver_config -config +s +f -t \
+    && rm virtualgl_*_amd64.deb
+
+##################################################################################################
+# Install docker
+##################################################################################################
+
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
+    && apt-key export "9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88" | gpg - \
+    && echo "deb [arch=amd64] https://download.docker.com/linux/debian jessie stable" >> /etc/apt/sources.list.d/docker.list \
+    && apt-get update && apt-get -y -q --no-install-recommends install docker-ce \
+    && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
     
-# Language/locale settings
-#   replace en_US by your desired locale setting, 
-#   for example de_DE for german.
-ENV LANG en_US.UTF-8  
-ENV LANGUAGE en_US:en  
-ENV LC_ALL en_US.UTF-8
-ENV LANG C.UTF-8
-RUN echo $LANG UTF-8 > /etc/locale.gen \
-    && update-locale --reset LANG=$LANG \
-    && locale-gen en_US.UTF-8 
+VOLUME /var/lib/docker
+EXPOSE 2375
 
-############### Create User and Password
-
-ENV USER dugong
-ENV HOME /headless
-
-RUN export PASS="$(pwgen -1 12)" \
-    && useradd -d $HOME --shell /bin/bash --user-group --groups adm,sudo $USER \
-    && echo "$USER:$PASS" | chpasswd \
-    && echo "$USER ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
-    && mkdir -p $HOME/data \
-    && mkdir -p $HOME/.ve \
-    && mkdir -p $HOME/.workspace \
-    && ln -s $HOME/.ve $HOME/data/.ve && ln -s $HOME/.workspace $HOME/data/.workspace \
-    && echo "############### Welcome to Minimal Dugong ###############"  > $HOME/.login \
-    && echo "############## User: $USER - Pass: $PASS ##############" >> $HOME/.login \
-    && chown -R $USER:$USER $HOME
-
-USER $USER
-WORKDIR $HOME/data
-
-ENTRYPOINT ["tini", "--"]
-VOLUME ["$HOME/data"]
-CMD ["/bin/bash"]
-
-RUN cat $HOME/.login
+##################################################################################################
