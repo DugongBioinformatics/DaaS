@@ -48,6 +48,8 @@ RUN echo '#! /bin/sh\n\
 ' > /usr/local/bin/start \
     && chmod +x /usr/local/bin/start 
 
+COPY /config/sudoers /etc/sudoers
+
 ENTRYPOINT ["/usr/local/bin/start"]
 ENTRYPOINT ["tini", "--"]
 CMD ["/bin/bash"]
