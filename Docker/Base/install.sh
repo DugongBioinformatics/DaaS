@@ -1,17 +1,6 @@
 #!/bin/bash
 set -ex; \
 
-apt-get update \
-&& apt-get install -q -y \
-    wget \
-    curl \
-    python \
-    lsb-release \
-    apt-transport-https \
-    ca-certificates \
-    software-properties-common \
-&& apt-get clean && rm -rf /var/lib/apt/lists/* \
-; \
 \
 # Test version is no support('rc' version)
 if [[ "$DOCKER_VERSION" == *"rc"* ]]; then \
