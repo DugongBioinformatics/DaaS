@@ -47,4 +47,11 @@ DOCKER_COMPOSE_VERSION="$(curl -s https://github.com/docker/toolbox/releases/tag
 \
 curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose; \
 chmod +x docker-compose; \
-mv docker-compose /usr/local/bin/
+mv docker-compose /usr/local/bin/ \
+\
+systemctl enable docker \
+\
+dockerd \
+  --host=unix:///var/run/docker.sock \
+  --host=tcp://0.0.0.0:2375 \
+  &> /var/log/docker.log 2>&1 < /dev/null &
