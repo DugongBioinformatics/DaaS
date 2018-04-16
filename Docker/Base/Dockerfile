@@ -42,5 +42,4 @@ RUN chmod +x ./install.sh \
     && chmod +x /usr/local/bin/docker-entrypoint.sh \
     && ./install.sh
 
-
 ENTRYPOINT ["docker-entrypoint.sh"]
