@@ -1,6 +1,5 @@
 #!/bin/bash
 set -ex; \
-
 \
 # Test version is no support('rc' version)
 if [[ "$DOCKER_VERSION" == *"rc"* ]]; then \
