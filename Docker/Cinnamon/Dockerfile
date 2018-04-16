@@ -88,13 +88,9 @@ RUN echo '#! /bin/sh\n\
 ' > /usr/local/bin/start 
 RUN chmod +x /usr/local/bin/start 
 
-ENTRYPOINT ["/usr/local/bin/start"]
+CMD ["/usr/local/bin/start"]
 
 ##################################################################################################
 
-USER $USER
-WORKDIR $HOME/data
-
 CMD ["cinnamon-session"]
-
 ENV DEBIAN_FRONTEND newt
