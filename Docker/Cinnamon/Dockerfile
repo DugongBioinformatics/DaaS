@@ -79,6 +79,23 @@ RUN apt-get update && apt-mark hold iptables && apt-get install -y --allow-unaut
     
 ##################################################################################################
 
+RUN echo '#! /bin/sh\n\
+      systemctl enable docker \n\
+      mount --make-shared / \n\
+      export CNI_BRIDGE_NETWORK_OFFSET="0.0.1.0" \n\
+      /dindnet &> /var/log/dind.log 2>&1 < /dev/null & \n\
+      dockerd \
+            --host=unix:///var/run/docker.sock \
+            --host=tcp://0.0.0.0:2375 \
+            &> /var/log/docker.log 2>&1 < /dev/null & \n\
+' > /usr/local/bin/start 
+RUN chmod +x /usr/local/bin/start 
+
+ENTRYPOINT ["/usr/local/bin/start"]
+
+##################################################################################################
+
+
 USER $USER
 WORKDIR $HOME/data
 
