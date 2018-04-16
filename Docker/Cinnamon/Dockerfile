@@ -79,18 +79,5 @@ RUN apt-get update && apt-mark hold iptables && apt-get install -y --allow-unaut
     
 ##################################################################################################
 
-RUN echo '#! /bin/sh\n\
-      systemctl enable docker \n\
-      dockerd \
-            --host=unix:///var/run/docker.sock \
-            --host=tcp://0.0.0.0:2375 \
-            &> /var/log/docker.log 2>&1 < /dev/null & \n\
-' > /usr/local/bin/start 
-RUN chmod +x /usr/local/bin/start 
-
-CMD ["/usr/local/bin/start"]
-
-##################################################################################################
-
 CMD ["cinnamon-session"]
 ENV DEBIAN_FRONTEND newt
