@@ -35,21 +35,10 @@ RUN apt-get update \
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ##################################################################################################
-# Install docker
-##################################################################################################
 
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
-    && apt-key export "9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88" | gpg - \
-    && echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable" >> /etc/apt/sources.list.d/docker.list \
-    && apt-get update && apt-get -y -q --no-install-recommends install docker-ce \
-    && apt-get --fix-missing install && apt --fix-broken install \
-    && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-    
-VOLUME /var/lib/docker
-EXPOSE 2375
+ADD install.sh ./install.sh
+RUN chmod +x ./install.sh \
+    && ./install.sh
+COPY docker-entrypoint.sh /usr/local/bin/
 
-# Copy local start.sh
-COPY start.sh /start.sh
-RUN chmod a+x /start.sh
-
-CMD ["/start.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
