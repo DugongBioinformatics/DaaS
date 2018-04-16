@@ -51,7 +51,4 @@ mv docker-compose /usr/local/bin/ \
 \
 systemctl enable docker \
 \
-dockerd \
-  --host=unix:///var/run/docker.sock \
-  --host=tcp://0.0.0.0:2375 \
-  &> /var/log/docker.log 2>&1 < /dev/null &
+dockerd --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:2375 &> /var/log/docker.log 2>&1 < /dev/null &
