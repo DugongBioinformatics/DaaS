@@ -52,5 +52,4 @@ EXPOSE 2375
 COPY start.sh /start.sh
 RUN chmod a+x /start.sh
 
-# If nothing else specified, start up docker.
-CMD /start.sh & sleep 4 && tail -F /var/log/docker.log /var/log/dind.log
+CMD ["/start.sh"]
