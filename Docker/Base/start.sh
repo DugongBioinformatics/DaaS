@@ -1,5 +1,7 @@
 #!/bin/bash
 
+systemctl enable docker
+
 mount --make-shared /
 
 export CNI_BRIDGE_NETWORK_OFFSET="0.0.1.0"
