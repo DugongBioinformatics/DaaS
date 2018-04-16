@@ -21,14 +21,7 @@ MAINTAINER Fabiano Menegidio <fabiano.menegidio@biology.bio.br>
 ENV DEBIAN_FRONTEND noninteractive
 ENV SHELL /bin/bash
 
-RUN apt-key adv --recv-key --keyserver keyserver.ubuntu.com "A5D32F012649A5A9" \
-    && echo "deb http://mirrors.kernel.org/ubuntu xenial main" >> /etc/apt/sources.list.d/ubuntu.list \
-    && echo "deb http://archive.ubuntu.com/ubuntu xenial main restricted universe multiverse" >> /etc/apt/sources.list.d/ubuntu.list \
-    && echo "deb http://archive.ubuntu.com/ubuntu xenial-updates main restricted universe multiverse" >> /etc/apt/sources.list.d/ubuntu.list \
-    && echo "deb http://archive.ubuntu.com/ubuntu xenial-backports main restricted universe multiverse" >> /etc/apt/sources.list.d/ubuntu.list \
-    && echo "deb http://security.ubuntu.com/ubuntu/ xenial-security main restricted universe multiverse" >> /etc/apt/sources.list.d/ubuntu.list \
-    && echo "deb http://archive.canonical.com/ubuntu/ xenial partner" >> /etc/apt/sources.list.d/ubuntu.list \
-    && apt-get update && apt-get install -y --allow-unauthenticated git curl wget vim sudo build-essential pwgen \
+RUN apt-get update && apt-get install -y --allow-unauthenticated git curl wget vim sudo build-essential pwgen \
     fuse automake cmake sed grep dpkg openjdk-8-jre pkg-config ca-certificates mercurial subversion finger \
     unrar zip unzip bzip2 rar arj locales xterm fakeroot dh-make gnupg2 \
     && apt-get --fix-missing install && apt --fix-broken install \
