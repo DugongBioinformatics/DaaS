@@ -40,6 +40,7 @@ ADD install.sh ./install.sh
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x ./install.sh \
     && chmod +x /usr/local/bin/docker-entrypoint.sh \
+    && ln -s /usr/local/bin/docker-entrypoint.sh /etc/init.d/docker-entrypoint.sh \
     && ./install.sh
 
 ENTRYPOINT ["docker-entrypoint.sh"]
