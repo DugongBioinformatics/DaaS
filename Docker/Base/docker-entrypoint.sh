@@ -1,10 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 set -e
-usermod -aG docker $USER
 
+/usr/sbin/init
 systemctl enable docker
+service restart docker
 
-dockerd \
-  --host=unix:///var/run/docker.sock \
-  --host=tcp://0.0.0.0:2375 \
-  &> /var/log/docker.log 2>&1 < /dev/null &
+exec "$@"
