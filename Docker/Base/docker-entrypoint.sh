@@ -1,7 +1,5 @@
 #!/bin/sh
 set -e
-
-groupadd docker
 usermod -aG docker $USER
 
 systemctl enable docker
