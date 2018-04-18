@@ -37,9 +37,13 @@ RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
     && echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable" >> /etc/apt/sources.list.d/docker.list \
     && apt-get update && apt-get -y -q --no-install-recommends install docker-ce \
     && apt-get --fix-missing install && apt --fix-broken install \
-    && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    && /bin/bash -c "service start docker"
-    
-VOLUME /var/lib/docker
+    && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
+
+ADD wrapdocker /usr/local/bin/wrapdocker
+RUN chmod +x /usr/local/bin/wrapdocker
+VOLUME /var/lib/docke
 EXPOSE 2375
 
+
+ADD startup.sh /
+CMD ["/startup.sh"]
