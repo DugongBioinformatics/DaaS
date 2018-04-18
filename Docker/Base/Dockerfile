@@ -41,7 +41,7 @@ RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
 
 ADD wrapdocker /usr/local/bin/wrapdocker
 RUN chmod +x /usr/local/bin/wrapdocker
-VOLUME /var/lib/docke
+VOLUME /var/lib/docker
 EXPOSE 2375
 
 
