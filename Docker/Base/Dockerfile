@@ -38,7 +38,7 @@ RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
     && apt-get update && apt-get -y -q --no-install-recommends install docker-ce \
     && apt-get --fix-missing install && apt --fix-broken install \
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    && /bin/bash service start docker
+    && /bin/bash -c "service start docker"
     
 VOLUME /var/lib/docker
 EXPOSE 2375
