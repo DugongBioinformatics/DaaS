@@ -1,7 +1,7 @@
 FROM x11docker/xfce
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN sudo apt-get install \
+RUN apt-get install \
      apt-transport-https \
      ca-certificates \
      curl \
