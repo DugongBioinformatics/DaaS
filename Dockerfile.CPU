@@ -57,6 +57,9 @@ RUN apt-get update --fix-missing \
     && DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y sudo apt-utils \
     && add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main" \
+    && add-apt-repository "deb http://nebc.nerc.ac.uk/bio-linux/ unstable bio-linux" \
+    && add-apt-repository "deb http://ppa.launchpad.net/nebc/bio-linux/ubuntu precise main" \
+    && add-apt-repository "deb-src http://ppa.launchpad.net/nebc/bio-linux/ubuntu precise main" \
     && apt-get upgrade -y && apt-get update \
     && apt-get install -y --allow-unauthenticated --no-install-recommends \
     build-essential software-properties-common ca-certificates bash-completion \
