@@ -94,6 +94,7 @@ RUN apt-get update --fix-missing \
     && DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y apt-utils software-properties-common ca-certificates \
     apt-transport-https \
+    && apt-get install -y --allow-unauthenticated --force-yes bio-linux-keyring \
     && add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main" \
     && add-apt-repository "deb http://nebc.nerc.ac.uk/bio-linux/ unstable bio-linux" \
     && add-apt-repository "deb http://ppa.launchpad.net/nebc/bio-linux/ubuntu precise main" \
