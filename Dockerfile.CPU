@@ -40,7 +40,7 @@ LABEL \
     
 
 ##############################################################################
-# VERSION
+# VERSIONS: full, minimal, light, gpu, ml
 ##############################################################################   
 ARG ARG_DUGONG_FLAVOR="full"
 ENV DUGONG_FLAVOR=$ARG_DUGONG_FLAVOR
