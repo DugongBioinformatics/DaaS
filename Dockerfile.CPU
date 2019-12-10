@@ -5,8 +5,8 @@ FROM ubuntu:18.04
 ##############################################################################
 LABEL \
     "maintainer"="Fabiano Menegidio <fabiano.menegidio@biology.bio.br>" \
-    "workspace.version"=$WORKSPACE_VERSION \
-    "workspace.flavor"=$WORKSPACE_FLAVOR \
+    "dugong.version"=$DUGONG_VERSION \
+    "dugong.flavor"=$DUGONG_FLAVOR \
     # Kubernetes Labels
     "io.k8s.description"="All-in-one web-based development environment for machine learning." \
     "io.k8s.display-name"="Dugong DaaS" \
