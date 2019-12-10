@@ -75,10 +75,10 @@ RUN apt-get update --fix-missing \
     && ldconfig \
     && echo $LANG UTF-8 > /etc/locale.gen \
     && update-locale --reset LANG=$LANG \
-    && locale-gen en_US.UTF-8 
-    && echo '#! /bin/sh\n\
-    [ -n "$HOME" ] && [ ! -e "$HOME/.config" ] && cp -R /etc/skel/. $HOME/ \n\
-    exec $*\n\
+    && locale-gen en_US.UTF-8 \
+    && echo '#! /bin/sh\n \
+    [ -n "$HOME" ] && [ ! -e "$HOME/.config" ] && cp -R /etc/skel/. $HOME/ \n \
+    exec $*\n \
     ' > /usr/local/bin/start \
     && chmod +x /usr/local/bin/start \
     && \
