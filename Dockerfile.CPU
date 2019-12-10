@@ -120,8 +120,6 @@ RUN apt-get update --fix-missing \
     && pip --no-cache-dir install scif \
     && conda update --all && conda clean -tipsy
 
-COPY /config/sudoers /etc/sudoers
-
 ENTRYPOINT ["/usr/local/bin/start"]
 ENTRYPOINT ["tini", "--"]
 CMD ["/bin/bash"]
