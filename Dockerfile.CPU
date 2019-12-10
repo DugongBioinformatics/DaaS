@@ -37,6 +37,13 @@ LABEL \
     "org.label-schema.schema-version"="1.0" \
     "org.label-schema.vcs-ref"=$ARG_VCS_REF \
     "org.label-schema.build-date"=$ARG_BUILD_DATE
+    
+
+##############################################################################
+# VERSION
+##############################################################################   
+ARG ARG_DUGONG_FLAVOR="full"
+ENV DUGONG_FLAVOR=$ARG_DUGONG_FLAVOR
 
 ##############################################################################
 # ENVs
