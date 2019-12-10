@@ -65,6 +65,7 @@ ENV PYTHON_VERSION="Miniconda3-latest"
 ENV JUPYTER_PORT=8888
 ENV CONDA_DIR="$HOME/.conda"
 ENV CONDA_PYTHON_DIR="/opt/conda/lib/python3.6"
+ENV LD_LIBRARY_PATH="$CONDA_DIR/lib"
 ENV PATH $CONDA_DIR:$CONDA_DIR/bin:/usr/local/openresty/nginx/sbin:$PATH
 ENV LANG="en_US.UTF-8"
 ENV LANGUAGE="en_US:en"
