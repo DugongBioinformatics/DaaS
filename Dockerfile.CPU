@@ -15,7 +15,44 @@
 ##############################################################################
 
 FROM ubuntu:latest
-MAINTAINER Fabiano Menegidio <fabiano.menegidio@biology.bio.br>
+
+##############################################################################
+# Metadata
+##############################################################################
+LABEL \
+    "maintainer"="Fabiano Menegidio <fabiano.menegidio@biology.bio.br>" \
+    "workspace.version"=$WORKSPACE_VERSION \
+    "workspace.flavor"=$WORKSPACE_FLAVOR \
+    # Kubernetes Labels
+    "io.k8s.description"="All-in-one web-based development environment for machine learning." \
+    "io.k8s.display-name"="Dugong DaaS" \
+    # Openshift labels: https://docs.okd.io/latest/creating_images/metadata.html
+    "io.openshift.expose-services"="8080:http, 5901:xvnc" \
+    "io.openshift.non-scalable"="true" \
+    "io.openshift.tags"="workspace, machine learning, vnc, ubuntu, xfce" \
+    "io.openshift.min-memory"="1Gi" \
+    # Open Container labels: https://github.com/opencontainers/image-spec/blob/master/annotations.md
+    "org.opencontainers.image.title"="Machine Learning Workspace" \
+    "org.opencontainers.image.description"="All-in-one web-based development environment for machine learning." \
+    "org.opencontainers.image.documentation"="https://github.com/ml-tooling/ml-workspace" \
+    "org.opencontainers.image.url"="https://github.com/ml-tooling/ml-workspace" \
+    "org.opencontainers.image.source"="https://github.com/ml-tooling/ml-workspace" \
+    "org.opencontainers.image.licenses"="Apache-2.0" \
+    "org.opencontainers.image.version"=$WORKSPACE_VERSION \
+    "org.opencontainers.image.vendor"="ML Tooling" \
+    "org.opencontainers.image.authors"="Lukas Masuch & Benjamin Raehtlein" \
+    "org.opencontainers.image.revision"=$ARG_VCS_REF \
+    "org.opencontainers.image.created"=$ARG_BUILD_DATE \ 
+    "org.label-schema.name"="Machine Learning Workspace" \
+    "org.label-schema.description"="All-in-one web-based development environment for machine learning." \
+    "org.label-schema.usage"="https://github.com/ml-tooling/ml-workspace" \
+    "org.label-schema.url"="https://github.com/ml-tooling/ml-workspace" \
+    "org.label-schema.vcs-url"="https://github.com/ml-tooling/ml-workspace" \
+    "org.label-schema.vendor"="ML Tooling" \
+    "org.label-schema.version"=$WORKSPACE_VERSION \
+    "org.label-schema.schema-version"="1.0" \
+    "org.label-schema.vcs-ref"=$ARG_VCS_REF \
+    "org.label-schema.build-date"=$ARG_BUILD_DATE
 
 ##############################################################################
 # ENVs
