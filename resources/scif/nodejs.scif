@@ -1,0 +1,32 @@
+%appinstall nodejs
+
+apt-get update
+curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+apt-get install -y nodejs
+
+# As conda is first in path, the commands 'node' and 'npm' reference to the version of conda. 
+# Replace those versions with the newly installed versions of node
+rm -f /opt/conda/bin/node && ln -s /usr/bin/node /opt/conda/bin/node
+rm -f /opt/conda/bin/npm && ln -s /usr/bin/npm /opt/conda/bin/npm && \
+
+# Fix permissions
+chmod a+rwx /usr/bin/node && chmod a+rwx /usr/bin/npm
+
+# Fix node versions - put into own dir and before conda:
+mkdir -p /opt/node/bin
+ln -s /usr/bin/node /opt/node/bin/node
+ln -s /usr/bin/npm /opt/node/bin/npm
+
+# Install YARN
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+apt-get update && apt-get install -y --no-install-recommends yarn
+
+# Install typescript 
+/usr/bin/npm install -g typescript && \
+
+# Install webpack - 32 MB
+/usr/bin/npm install -g webpack
+
+apt-get --fix-missing install && apt --fix-broken install
+apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
