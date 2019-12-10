@@ -118,7 +118,11 @@ RUN apt-get update --fix-missing \
     && conda config --add channels bioconda \
     && conda config --add channels anaconda \
     && pip --no-cache-dir install scif \
-    && conda update --all && conda clean -tipsy
+    && conda update --all && conda clean -tipsy \
+    && \
+##############################################################################
+# Install packages through Scif
+##############################################################################
 
 ENTRYPOINT ["/usr/local/bin/start"]
 ENTRYPOINT ["tini", "--"]
