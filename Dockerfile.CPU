@@ -65,7 +65,7 @@ ENV PYTHON_VERSION="Miniconda3-latest"
 ENV JUPYTER_PORT=8888
 ENV CONDA_DIR="$HOME/.conda"
 ENV CONDA_PYTHON_DIR="/opt/conda/lib/python3.6"
-ENV PATH $CONDA_DIR:$CONDA_DIR/bin:$PATH
+ENV PATH $CONDA_DIR:$CONDA_DIR/bin:/usr/local/openresty/nginx/sbin:$PATH
 ENV LANG="en_US.UTF-8"
 ENV LANGUAGE="en_US:en"
 ENV LC_ALL="en_US.UTF-8"
@@ -82,6 +82,7 @@ RUN mkdir $RESOURCES_PATH && chmod a+rwx $RESOURCES_PATH \
     && mkdir $SCIF_PATH && chmod a+rwx $SCIF_PATH
     
 COPY resources/scif/* $SCIF_PATH
+COPY resources/nginx/lua-extensions /etc/nginx/nginx_plugins
 
 ##############################################################################
 # Install base dependencies
