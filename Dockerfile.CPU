@@ -94,13 +94,9 @@ RUN apt-get update --fix-missing \
     && DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y apt-utils software-properties-common ca-certificates \
     apt-transport-https \
-    && apt-get install -y --allow-unauthenticated bio-linux-keyring \
     && add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main" \
-    && add-apt-repository "deb http://nebc.nerc.ac.uk/bio-linux/ unstable bio-linux" \
-    && add-apt-repository "deb http://ppa.launchpad.net/nebc/bio-linux/ubuntu precise main" \
-    && add-apt-repository "deb-src http://ppa.launchpad.net/nebc/bio-linux/ubuntu precise main" \
     && apt-get upgrade -y && apt-get update \
-    && apt-get install -y --allow-unauthenticated --no-install-recommends \
+    && apt-get install -y --allow-unauthenticated --no-install-recommends  \
     build-essential bash-completion net-tools locales screen unzip util-linux \
     xterm git curl libcurl3 wget vim dpkg automake cmake sed grep gnupg2 pwgen \
     lsof cron openssl tmux nano sqlite3 xmlstarlet libhiredis-dev less tree fuse \
