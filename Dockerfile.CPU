@@ -66,7 +66,7 @@ ENV JUPYTER_PORT=8888
 ENV CONDA_DIR="$HOME/.conda"
 ENV CONDA_PYTHON_DIR="/opt/conda/lib/python3.6"
 ENV LD_LIBRARY_PATH="$CONDA_DIR/lib"
-ENV PATH $CONDA_DIR:$CONDA_DIR/bin:/usr/local/openresty/nginx/sbin:$PATH
+ENV PATH $CONDA_DIR:$CONDA_DIR/bin:/usr/local/openresty/nginx/sbin:/opt/node/bin:$PATH
 ENV LANG="en_US.UTF-8"
 ENV LANGUAGE="en_US:en"
 ENV LC_ALL="en_US.UTF-8"
@@ -139,7 +139,8 @@ RUN apt-get update --fix-missing \
 # Install packages through Scif
 ##############################################################################
     scif install $SCIF_PATH/nginx.scif \
-    && scif install $SCIF_PATH/ssh.scif
+    && scif install $SCIF_PATH/ssh.scif \
+    && scif install $SCIF_PATH/nodejs.scif
 
 ENTRYPOINT ["/usr/local/bin/start"]
 ENTRYPOINT ["tini", "--"]
