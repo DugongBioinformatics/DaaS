@@ -138,7 +138,7 @@ RUN apt-get update --fix-missing \
 # Install packages through Scif
 ##############################################################################
     scif install $SCIF_PATH/nginx.scif \
-    scif install $SCIF_PATH/ssh.scif
+    && scif install $SCIF_PATH/ssh.scif
 
 ENTRYPOINT ["/usr/local/bin/start"]
 ENTRYPOINT ["tini", "--"]
