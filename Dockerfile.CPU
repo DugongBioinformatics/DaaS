@@ -140,7 +140,8 @@ RUN apt-get update --fix-missing \
 ##############################################################################
     scif install $SCIF_PATH/nginx.scif \
     && scif install $SCIF_PATH/ssh.scif \
-    && scif install $SCIF_PATH/nodejs.scif
+    && scif install $SCIF_PATH/nodejs.scif \
+    && scif install $SCIF_PATH/jdk.scif
 
 ENTRYPOINT ["/usr/local/bin/start"]
 ENTRYPOINT ["tini", "--"]
