@@ -57,8 +57,8 @@ RUN apt-get update --fix-missing \
     && apt-get install -y sudo apt-utils \
     && apt-get upgrade -y && apt-get update \
     && apt-get install -y --allow-unauthenticated --no-install-recommends \
-    build-essential software-properties-common python-software-properties \
-    ca-certificates apt-transport-https net-tools locales bash-completion \
+    build-essential software-properties-common ca-certificates \
+    apt-transport-https net-tools locales bash-completion screen \
     xterm git curl libcurl3 wget vim dpkg automake cmake sed grep gnupg2 \
     lsof cron openssl tmux nano sqlite3 xmlstarlet libhiredis-dev less tree \
     iputils-ping locate jq rsync subversion mercurial jed unixodbc unixodbc-dev \
