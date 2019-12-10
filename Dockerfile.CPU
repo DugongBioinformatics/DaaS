@@ -63,11 +63,11 @@ RUN apt-get update --fix-missing \
     xterm git curl libcurl3 wget vim dpkg automake cmake sed grep gnupg2 \
     lsof cron openssl tmux nano sqlite3 xmlstarlet libhiredis-dev less tree \
     iputils-ping locate jq rsync subversion mercurial jed unixodbc unixodbc-dev \
-    libtiff-dev libjpeg-dev libpng-dev libpng12-dev libjasper-dev libglib2.0-0 \
-    libxext6 libsm6 libxext-dev libxrender1 libzmq-dev protobuf-compiler autoconf \
-    libprotobuf-dev libprotoc-dev automake libtool cmake fonts-liberation zip arj \
-    google-perftools gzip unrar bzip2 lzop bsdtar zlib1g-dev pkg-config libgtk-3-bin  \
-    libgtk-3-common libgtk-3-0:amd64 libgtk-3-dev \
+    libtiff-dev libjpeg-dev libpng-dev libjasper-dev libglib2.0-0 libxext6 libsm6 \
+    libxext-dev libxrender1 libzmq-dev protobuf-compiler autoconf libprotobuf-dev \
+    google-perftools libprotoc-dev automake libtool cmake fonts-liberation zip arj \
+    gzip unrar bzip2 lzop bsdtar zlib1g-dev pkg-config libgtk-3-bin libgtk-3-common \
+    libgtk-3-0:amd64 libgtk-3-dev \
     && apt-get --fix-missing install && apt --fix-broken install \
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && wget --quiet  https://github.com/krallin/tini/releases/download/v0.16.1/tini \
