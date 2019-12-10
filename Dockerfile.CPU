@@ -83,6 +83,7 @@ RUN mkdir $RESOURCES_PATH && chmod a+rwx $RESOURCES_PATH \
     
 COPY resources/scif/* $SCIF_PATH
 COPY resources/nginx/lua-extensions /etc/nginx/nginx_plugins
+COPY resources/nginx/nginx.conf /etc/nginx/nginx.conf
 
 ##############################################################################
 # Install base dependencies
@@ -135,7 +136,8 @@ RUN apt-get update --fix-missing \
 ##############################################################################
 # Install packages through Scif
 ##############################################################################
-    scif install $SCIF_PATH/nginx.scif
+    scif install $SCIF_PATH/nginx.scif \
+    scif install $SCIF_PATH/ssh.scif
 
 ENTRYPOINT ["/usr/local/bin/start"]
 ENTRYPOINT ["tini", "--"]
