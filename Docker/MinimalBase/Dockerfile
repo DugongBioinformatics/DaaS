@@ -1,6 +1,6 @@
-###########################################################################
+##############################################################################
 # Dugong - Scientific Linux Containers for Bioinformatics
-# ========================================================
+# ============================================================================
 #
 # Current development is led by Fabiano Menegidio.
 #
@@ -12,14 +12,38 @@
 # GitHub: https://github.com/fabianomenegidio
 # GitHub: https://github.com/DugongBioinformatics
 #
-###########################################################################
+##############################################################################
 
-FROM ubuntu:xenial
+
+FROM ubuntu:latest
 MAINTAINER Fabiano Menegidio <fabiano.menegidio@biology.bio.br>
 
-############### Environment config
-ENV DEBIAN_FRONTEND noninteractive
-ENV SHELL /bin/bash
+##############################################################################
+# ENVs
+##############################################################################
+ENV DEBIAN_FRONTEND="noninteractive"
+ENV SHELL="/bin/bash"
+ENV HOME="/root"
+ENV WORKDIR_HOME="/workdir"
+ENV USER_GID=0
+ENV XDG_CACHE_HOME="/root/.cache/"
+ENV XDG_RUNTIME_DIR="/tmp"
+ENV DISPLAY=":1"
+ENV TERM="xterm"
+ENV RESOURCES_PATH="/resources"
+ENV SSL_RESOURCES_PATH="/resources/ssl" 
+ENV NB_USER="root"
+ENV PYTHON3_VERSION="Miniconda3-latest"
+ENV JUPYTER_PORT=8888
+ENV CONDA_DIR="$HOME/.conda"
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en  
+ENV LC_ALL en_US.UTF-8
+ENV LANG C.UTF-8
+
+##############################################################################
+# Install base dependencies
+##############################################################################
 
 RUN apt-get update && apt-get install -y --allow-unauthenticated git curl wget vim sudo build-essential pwgen \
     fuse automake cmake sed grep dpkg openjdk-8-jre pkg-config ca-certificates mercurial subversion finger \
