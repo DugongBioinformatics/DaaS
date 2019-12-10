@@ -66,7 +66,7 @@ RUN apt-get update --fix-missing \
     libxext6 libsm6 libxext-dev libxrender1 libzmq-dev protobuf-compiler autoconf \
     libprotobuf-dev libprotoc-dev automake libtool cmake fonts-liberation zip arj \
     google-perftools gzip unrar bzip2 lzop bsdtar zlib1g-dev pwgen fuse pkg-config \
-    unzip util-linux \
+    unzip util-linux libgtk-3-bin libgtk-3-common libgtk-3-0:amd64 libgtk-3-dev \
     && apt-get --fix-missing install && apt --fix-broken install \
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && wget --quiet  https://github.com/krallin/tini/releases/download/v0.16.1/tini \
