@@ -82,7 +82,7 @@ RUN apt-get update --fix-missing \
     && apt-get upgrade -y && apt-get update \
     && apt-get install -y --allow-unauthenticated --no-install-recommends  \
     build-essential bash-completion net-tools locales screen unzip util-linux \
-    xterm git curl libcurl3 wget vim dpkg automake cmake sed grep gnupg2 pwgen \
+    xterm git curl libcurl4 wget vim dpkg automake cmake sed grep gnupg2 pwgen \
     lsof cron openssl tmux nano sqlite3 xmlstarlet libhiredis-dev less tree fuse \
     iputils-ping locate jq rsync subversion mercurial jed unixodbc unixodbc-dev \
     libtiff-dev libjpeg-dev libpng-dev libjasper-dev libglib2.0-0 libxext6 libsm6 \
