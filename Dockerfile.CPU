@@ -46,9 +46,9 @@ WORKDIR $HOME
 ##############################################################################
 # Create folders
 ##############################################################################
-RUN mkdir $RESOURCES_PATH && chmod a+rwx $RESOURCES_PATH && \
-    mkdir $WORKDIR_HOME && chmod a+rwx $WORKDIR_HOME && \
-    mkdir $SSL_RESOURCES_PATH && chmod a+rwx $SSL_RESOURCES_PATH
+RUN mkdir $RESOURCES_PATH && chmod a+rwx $RESOURCES_PATH \
+    && mkdir $WORKDIR_HOME && chmod a+rwx $WORKDIR_HOME \
+    && mkdir $SSL_RESOURCES_PATH && chmod a+rwx $SSL_RESOURCES_PATH
 
 ##############################################################################
 # Install base dependencies
