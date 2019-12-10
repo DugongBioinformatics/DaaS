@@ -51,7 +51,8 @@ ENV XDG_RUNTIME_DIR="/tmp"
 ENV DISPLAY=":1"
 ENV TERM="xterm"
 ENV RESOURCES_PATH="/resources"
-ENV SSL_RESOURCES_PATH="/resources/ssl" 
+ENV SSL_RESOURCES_PATH="/resources/ssl"
+ENV SCIF_PATH="/resources/scif"
 ENV NB_USER="root"
 ENV PYTHON_VERSION="Miniconda3-latest"
 ENV JUPYTER_PORT=8888
@@ -70,7 +71,10 @@ WORKDIR $HOME
 ##############################################################################
 RUN mkdir $RESOURCES_PATH && chmod a+rwx $RESOURCES_PATH \
     && mkdir $WORKDIR_HOME && chmod a+rwx $WORKDIR_HOME \
-    && mkdir $SSL_RESOURCES_PATH && chmod a+rwx $SSL_RESOURCES_PATH
+    && mkdir $SSL_RESOURCES_PATH && chmod a+rwx $SSL_RESOURCES_PATH \
+    && mkdir $SCIF_PATH && chmod a+rwx $SCIF_PATH
+    
+COPY resources/scif/* $SCIF_PATH
 
 ##############################################################################
 # Install base dependencies
