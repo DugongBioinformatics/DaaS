@@ -4,7 +4,7 @@ apt-get update && apt-get purge -y nginx nginx-common
 
 # libpcre required, otherwise you get a 'the HTTP rewrite module requires the PCRE library' error
 # Install apache2-utils to generate user:password file for nginx.
-apt-get install -y libssl-dev libpcre3 libpcre3-dev apache2-utils
+apt-get install -y --allow-unauthenticated --no-install-recommends libssl-dev libpcre3 libpcre3-dev apache2-utils
 
 mkdir $RESOURCES_PATH"/openresty" && cd $RESOURCES_PATH"/openresty"
 
