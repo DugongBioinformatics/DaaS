@@ -1,3 +1,5 @@
+%appinstall python
 
-
-apt-get update && apt-get install -y python-numpy
+conda install --quiet --yes numpy pandas dask-core plotly pyyaml scikit-image scikit-learn scipy seaborn sqlalchemy \
+statsmodels sympy xarray xlrd numexpr numba networkx matplotlib ipywidgets hdf5 h5py dill cython cloudpickle bokeh \
+blas openblas
