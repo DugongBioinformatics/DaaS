@@ -90,6 +90,10 @@ COPY resources/ssh/ssh_config resources/ssh/sshd_config  /etc/ssh/
 COPY resources/config/xrdp.ini /etc/xrdp/xrdp.ini
 COPY resources/config/supervisord.conf /etc/supervisor/supervisord.conf
 COPY resources/config/90assumeyes /etc/apt/apt.conf.d/
+COPY resources/tools/* /resources/tools
+COPY resources/scripts/clean-layer.sh /usr/bin/clean-layer.sh
+COPY resources/scripts/fix-permissions.sh /usr/bin/fix-permissions.sh
+
 
 ##############################################################################
 # Install base dependencies
@@ -123,7 +127,9 @@ RUN apt-get update --fix-missing \
     [ -n "$HOME" ] && [ ! -e "$HOME/.config" ] && cp -R /etc/skel/. $HOME/ \n \
     exec $*\n \
     ' > /usr/local/bin/start \
-    && chmod +x /usr/local/bin/start \
+    && chmod +x /usr/local/bin/start \ 
+    && chmod a+rwx /usr/bin/clean-layer.sh && \ 
+    && chmod a+rwx /usr/bin/fix-permissions.sh \
     && \
 ##############################################################################
 # Install Miniconda dependencies
