@@ -109,7 +109,7 @@ RUN apt-get update --fix-missing \
     libxext-dev libxrender1 libzmq3-dev protobuf-compiler autoconf libprotobuf-dev \
     google-perftools libprotoc-dev automake libtool cmake fonts-liberation zip arj \
     gzip unrar bzip2 lzop bsdtar zlib1g-dev pkg-config libgtk-3-bin libgtk-3-common \
-    libgtk-3-0:amd64 libgtk-3-dev sudo \
+    libgtk-3-0:amd64 libgtk-3-dev sudo htop \
     && apt-get --fix-missing install && apt --fix-broken install \
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && wget --quiet  https://github.com/krallin/tini/releases/download/v0.16.1/tini \
@@ -150,9 +150,8 @@ RUN apt-get update --fix-missing \
     && scif install $SCIF_PATH/rdp.scif \
     && scif install $SCIF_PATH/supervisor.scif \
     && scif install $SCIF_PATH/python.scif \
-    && scif install $SCIF_PATH/novnc.scif
-    
-    
+    && scif install $SCIF_PATH/novnc.scif \
+    && scif install $SCIF_PATH/gui_tools.scif
 
 ENTRYPOINT ["/usr/local/bin/start"]
 ENTRYPOINT ["tini", "--"]
