@@ -1,7 +1,7 @@
 %appinstall ssh
 
 apt-get update 
-apt-get install -y --no-install-recommends openssh-client openssh-server sslh autossh mussh
+apt-get install -y --allow-unauthenticated --no-install-recommends openssh-client openssh-server sslh autossh mussh
 
 chmod go-w $HOME && mkdir -p $HOME/.ssh/
 touch $HOME/.ssh/config && sudo chown -R $NB_USER:users $HOME/.ssh && chmod 700 $HOME/.ssh
