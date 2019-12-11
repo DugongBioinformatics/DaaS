@@ -5,4 +5,4 @@ thunar-vcs-plugin glogg baobab mousepad p7zip p7zip-rar thunar-archive-plugin sq
 gigolo gvfs-bi gftp
 apt-get remove -y app-install-data gnome-user-guide
 apt-get --fix-missing install && apt --fix-broken install
-apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+clean-layer.sh && fix-permissions.sh
