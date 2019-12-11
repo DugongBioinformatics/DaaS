@@ -4,4 +4,4 @@ if [ "$WORKSPACE_FLAVOR" = "minimal" ]; then
     exit 0 ;
 fi
 /bin/bash $RESOURCES_PATH/tools/firefox.sh --install
-clean-layer.sh
+clean-layer.sh && fix-permissions.sh
