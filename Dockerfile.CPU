@@ -147,7 +147,11 @@ RUN apt-get update --fix-missing \
     && scif install $SCIF_PATH/nodejs.scif \
     && scif install $SCIF_PATH/jdk.scif \
     && scif install $SCIF_PATH/xfce4.scif \
-    && scif install $SCIF_PATH/rdp.scif
+    && scif install $SCIF_PATH/rdp.scif \
+    && scif install $SCIF_PATH/supervisor.scif \
+    && scif install $SCIF_PATH/novnc.scif \
+    && scif install $SCIF_PATH/python.scif
+    
 
 ENTRYPOINT ["/usr/local/bin/start"]
 ENTRYPOINT ["tini", "--"]
