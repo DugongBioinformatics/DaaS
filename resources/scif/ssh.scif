@@ -9,4 +9,4 @@ printenv >> $HOME/.ssh/environment
 chmod -R a+rwx /usr/local/bin/
 
 apt-get --fix-missing install && apt --fix-broken install
-apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+clean-layer.sh && fix-permissions.sh
