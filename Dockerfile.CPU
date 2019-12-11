@@ -128,7 +128,7 @@ RUN apt-get update --fix-missing \
     exec $*\n \
     ' > /usr/local/bin/start \
     && chmod +x /usr/local/bin/start \ 
-    && chmod a+rwx /usr/bin/clean-layer.sh && \ 
+    && chmod a+rwx /usr/bin/clean-layer.sh \ 
     && chmod a+rwx /usr/bin/fix-permissions.sh \
     && \
 ##############################################################################
