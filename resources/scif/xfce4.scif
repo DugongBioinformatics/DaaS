@@ -4,4 +4,4 @@ apt-get update && apt-get install -y --allow-unauthenticated --no-install-recomm
 xfce4-terminal xfce4-systemload-plugin xfce4-taskmanager
 apt-get purge -y pm-utils xscreensaver*
 apt-get --fix-missing install && apt --fix-broken install
-apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+clean-layer.sh && fix-permissions.sh
