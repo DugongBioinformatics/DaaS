@@ -29,4 +29,4 @@ apt-get update && apt-get install -y --allow-unauthenticated --no-install-recomm
 /usr/bin/npm install -g webpack
 
 apt-get --fix-missing install && apt --fix-broken install
-clean-layer.sh && fix-permissions.sh
+clean-layer.sh
