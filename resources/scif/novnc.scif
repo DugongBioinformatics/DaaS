@@ -7,4 +7,5 @@ wget -qO- https://github.com/novnc/noVNC/archive/v1.1.0.tar.gz | tar xz --strip 
 wget -qO- https://github.com/novnc/websockify/archive/v0.9.0.tar.gz | tar xz --strip 1 -C ./novnc/utils/websockify
 chmod +x -v ./novnc/utils/*.sh
 mkdir -p $HOME/.vnc
-clean-layer.sh && fix-permissions.sh
+fix-permissions.sh ${RESOURCES_PATH}
+clean-layer.sh
