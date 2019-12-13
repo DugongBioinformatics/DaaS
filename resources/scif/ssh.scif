@@ -9,4 +9,5 @@ printenv >> $HOME/.ssh/environment
 chmod -R a+rwx /usr/local/bin/
 
 apt-get --fix-missing install && apt --fix-broken install
-clean-layer.sh && fix-permissions.sh
+fix-permissions.sh $HOME
+clean-layer.sh
