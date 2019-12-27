@@ -158,7 +158,8 @@ RUN apt-get update --fix-missing \
     && scif install $SCIF_PATH/python.scif \
     && scif install $SCIF_PATH/novnc.scif \
     && scif install $SCIF_PATH/gui_tools.scif \
-    && scif install $SCIF_PATH/config_conda.scif
+    && scif install $SCIF_PATH/config_conda.scif \
+    && scif install $SCIF_PATH/vs_code_server.scif
 
 ENTRYPOINT ["/usr/local/bin/start"]
 ENTRYPOINT ["tini", "--"]
