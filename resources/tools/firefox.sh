@@ -66,3 +66,4 @@ if [ $INSTALL_ONLY = 0 ] ; then
     firefox
     sleep 10
 fi
+
