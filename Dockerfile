@@ -1,0 +1,153 @@
+FROM ubuntu:18.04
+MAINTAINER Fabiano Menegidio <fabiano.menegidio@biology.bio.br>
+
+##############################################################################
+# Metadata
+##############################################################################
+LABEL base.image="ubuntu:18.04"
+LABEL name.image=""
+LABEL version="1.0"
+LABEL description=""
+LABEL website=""
+LABEL documentation=""
+LABEL maintainer="Fabiano Menegidio"
+LABEL python_version="3.7.7"
+LABEL conda_version=""
+LABEL scif_version=""
+LABEL jupyter_version=""
+LABEL CUDA_version=""
+LABEL CUDNN_version=""
+
+##############################################################################
+# GLOBAL ENVs
+##############################################################################
+ENV SHELL /bin/bash
+ENV TERM="xterm"
+ENV HOME /root
+ENV USER_GID=0
+ENV DEBIAN_FRONTEND noninteractive
+ENV PATH $CONDA_DIR:$CONDA_DIR/bin:$PATH
+ENV CUDA_VERSION 10.1.168
+ENV NVIDIA_VISIBLE_DEVICES all
+ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
+ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
+ENV CUDNN_VERSION 7.6.0
+ENV XDG_CACHE_HOME $HOME/.cache/
+ENV XDG_RUNTIME_DIR="/tmp"
+ENV DISPLAY=":1"
+ENV RESOURCES_PATH="/resources"
+ENV SSL_RESOURCES_PATH="/resources/ssl"
+ENV WORKSPACE_HOME="/workspace"
+##############################################################################
+# LANGUAGE ENVs
+##############################################################################
+ENV LC_ALL="en_US.UTF-8"
+ENV LANG="en_US.UTF-8"
+ENV LANGUAGE="en_US:en"
+##############################################################################
+# CONDA ENVs
+##############################################################################
+ENV PYTHON3_VERSION Miniconda3-latest
+ENV PYTHON2_VERSION Miniconda2-latest
+ENV CONDA_DIR $HOME/.conda
+ENV PYTHON_VERSION="3.7.7"
+ENV CONDA_PYTHON_DIR $CONDA_DIR/lib/python3.7
+ENV conda_env="py37"
+ENV LD_LIBRARY_PATH $CONDA_DIR/lib
+##############################################################################
+# JUPYTER ENVs
+##############################################################################
+ENV JUPYTER_TYPE notebook
+ENV JUPYTER_PORT 8888
+ENV NB_USER="root"
+
+##############################################################################
+# COPY config files
+##############################################################################
+COPY .config/start.sh /start.sh
+COPY .config/start-notebook.sh /usr/local/bin/
+COPY .config/bashrc/.bashrc $HOME/.bashrc
+COPY .config/bashrc/.bash_profile $HOME/.bash_profile
+COPY .config/scripts/clean-layer.sh /usr/bin/clean-layer.sh
+COPY .config/scripts/fix-permissions.sh /usr/bin/fix-permissions.sh
+
+##############################################################################
+# Make folders and permission scripts
+##############################################################################
+RUN chmod a+rwx /usr/bin/clean-layer.sh \
+    && chmod a+rwx /usr/bin/fix-permissions.sh \
+    && mkdir $RESOURCES_PATH && chmod a+rwx $RESOURCES_PATH \
+    && mkdir $WORKSPACE_HOME && chmod a+rwx $WORKSPACE_HOME \
+    && mkdir $SSL_RESOURCES_PATH && chmod a+rwx $SSL_RESOURCES_PATH
+
+
+##############################################################################
+##############################################################################
+##############################################################################
+##############################################################################
+##############################################################################
+##############################################################################
+##############################################################################
+##############################################################################
+##############################################################################
+##############################################################################
+
+##############################################################################
+# Install base dependencies
+##############################################################################
+RUN apt-get update \
+    && LIBPNG="$(apt-cache depends libpng-dev | grep 'Depends: libpng' | awk '{print $2}')" \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --allow-unauthenticated \
+    --no-install-recommends bash git zip wget libssl1.0.0 apt-utils \
+    ca-certificates locales mlocate debconf curl build-essential \
+    vim bzip2 sudo automake cmake sed grep x11-utils xvfb openssl \
+    libxtst6 libxcomposite1 $LIBPNG stunnel swig libjpeg-dev libpng-dev libreadline-dev \
+    apt-transport-https gnupg-agent gpg-agent gnupg2 pkg-config software-properties-common \
+    lsof net-tools libcurl4 wget cron iproute2 psmisc tmux dpkg-sig uuid-dev csh xclip clinfo \
+    libgdbm-dev libncurses5-dev gawk swig graphviz libgraphviz-dev screen nano locate sqlite3 \
+    xmlstarlet libspatialindex-dev yara libhiredis-dev libpq-dev libmysqlclient-dev libmariadbclient-dev \
+    libleptonica-dev libgeos-dev less tree bash-completion iputils-ping jq rsync subversion jed \
+    unixodbc unixodbc-dev libtiff-dev libjpeg-dev libglib2.0-0 libxext6 libsm6 libxext-dev \
+    libxrender1 libzmq3-dev protobuf-compiler libprotobuf-dev libprotoc-dev autoconf libtool \
+    fonts-liberation google-perftools gzip unzip lzop bsdtar zlibc unp libbz2-dev liblzma-dev \
+    zlib1g-dev liblapack-dev libatlas-base-dev libeigen3-dev libblas-dev libhdf5-dev libtesseract-dev \
+    libjpeg-turbo \
+    && apt-get clean && apt-get autoclean && apt-get autoremove \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/ \
+    && echo "LC_ALL=en_US.UTF-8" >> /etc/environment \
+    && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
+    && echo "LANG=en_US.UTF-8" > /etc/locale.conf \
+    && locale-gen en_US.UTF-8 \
+    && dpkg-reconfigure locales \
+    && mkdir -p /.config \
+    && mkdir -p $HOME/workdir/data \
+    && mkdir -p $HOME/workdir/notebooks \
+    && chmod +x /start.sh \
+    && chmod +x /usr/local/bin/start-notebook.sh \
+    && \
+##############################################################################
+# Install Miniconda dependencies
+##############################################################################
+    wget --quiet https://repo.anaconda.com/miniconda/${PYTHON3_VERSION}-Linux-x86_64.sh \
+    && /bin/bash ${PYTHON3_VERSION}-Linux-x86_64.sh -b -p ${CONDA_DIR} \
+    && rm ${PYTHON3_VERSION}-Linux-x86_64.sh \
+    && /bin/bash -c "exec $SHELL -l" \
+    && /bin/bash -c "source $HOME/.bashrc" \
+    && conda config --add channels conda-forge \
+    && conda config --add channels bioconda \
+    && conda config --add channels anaconda \
+    && conda update --all && conda clean -tipy \
+    && \
+##############################################################################
+# So we decided to use Python 3.7.7 as the container default.
+# If you don't want to use these libraries, change your Python version to > 3.7.7.
+##############################################################################
+    conda create -n py37 python=3.7.7 -y
+
+ENV CONDA_DEFAULT_ENV $conda_env
+
+##############################################################################
+# Install Scif
+##############################################################################
+RUN python -m pip --no-cache-dir install --upgrade scif \
+    && conda clean -tipy
