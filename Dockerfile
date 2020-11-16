@@ -1,6 +1,5 @@
 FROM ubuntu:18.04
 MAINTAINER Fabiano Menegidio <fabiano.menegidio@biology.bio.br>
-
 ##############################################################################
 # Metadata
 ##############################################################################
@@ -17,7 +16,13 @@ LABEL scif_version=""
 LABEL jupyter_version=""
 LABEL CUDA_version=""
 LABEL CUDNN_version=""
-
+##############################################################################
+# ARGs BUILD
+##############################################################################
+ARG ARG_BUILD_DATE="unknown"
+ARG ARG_VCS_REF="unknown"
+ARG ARG_WORKSPACE_VERSION="unknown"
+ENV WORKSPACE_VERSION=$ARG_WORKSPACE_VERSION
 ##############################################################################
 # GLOBAL ENVs
 ##############################################################################
@@ -60,7 +65,12 @@ ENV LD_LIBRARY_PATH $CONDA_DIR/lib
 ENV JUPYTER_TYPE notebook
 ENV JUPYTER_PORT 8888
 ENV NB_USER="root"
-
+##############################################################################
+# VNC ENVs
+##############################################################################
+ENV VNC_PW=vncpassword
+ENV VNC_RESOLUTION=1600x900
+ENV VNC_COL_DEPTH=24
 ##############################################################################
 # COPY config files
 ##############################################################################
@@ -70,7 +80,6 @@ COPY config/bashrc/.bashrc $HOME/.bashrc
 COPY config/bashrc/.bash_profile $HOME/.bash_profile
 COPY config/scripts/clean-layer.sh /usr/bin/clean-layer.sh
 COPY config/scripts/fix-permissions.sh /usr/bin/fix-permissions.sh
-
 ##############################################################################
 # Make folders and permission scripts
 ##############################################################################
@@ -79,7 +88,6 @@ RUN chmod a+rwx /usr/bin/clean-layer.sh \
     && mkdir $RESOURCES_PATH && chmod a+rwx $RESOURCES_PATH \
     && mkdir $WORKSPACE_HOME && chmod a+rwx $WORKSPACE_HOME \
     && mkdir $SSL_RESOURCES_PATH && chmod a+rwx $SSL_RESOURCES_PATH
-
 
 ##############################################################################
 ##############################################################################
@@ -111,7 +119,7 @@ RUN apt-get update \
     libxrender1 libzmq3-dev protobuf-compiler libprotobuf-dev libprotoc-dev autoconf libtool \
     fonts-liberation google-perftools gzip unzip lzop bsdtar zlibc unp libbz2-dev liblzma-dev \
     zlib1g-dev liblapack-dev libatlas-base-dev libeigen3-dev libblas-dev libhdf5-dev libtesseract-dev \
-    libjpeg-turbo \
+    libjpeg-turbo openssh-client openssh-server sslh autossh mussh \
     && apt-get clean && apt-get autoclean && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/ \
     && echo "LC_ALL=en_US.UTF-8" >> /etc/environment \
@@ -119,11 +127,14 @@ RUN apt-get update \
     && echo "LANG=en_US.UTF-8" > /etc/locale.conf \
     && locale-gen en_US.UTF-8 \
     && dpkg-reconfigure locales \
-    && mkdir -p /.config \
+    && ldconfig \
     && mkdir -p $HOME/workdir/data \
     && mkdir -p $HOME/workdir/notebooks \
     && chmod +x /start.sh \
     && chmod +x /usr/local/bin/start-notebook.sh \
+    && chmod -R a+rwx /usr/local/bin/ \
+    && fix-permissions.sh $HOME \
+    && clean-layer.sh \
     && \
 ##############################################################################
 # Install Miniconda dependencies
@@ -151,3 +162,18 @@ ENV CONDA_DEFAULT_ENV $conda_env
 ##############################################################################
 RUN python -m pip --no-cache-dir install --upgrade scif \
     && conda clean -tipy
+
+
+##############################################################################
+# Install packages through Scif
+##############################################################################
+
+RUN scif install $HOME/.packages/cuda.scif \
+    && scif install $HOME/.packages/cdnn.scif
+
+
+
+EXPOSE 6000
+EXPOSE 8888
+VOLUME ["$HOME/workdir"]
+#CMD ["/usr/local/bin/start-notebook.sh"]
