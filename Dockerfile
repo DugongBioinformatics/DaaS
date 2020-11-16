@@ -64,12 +64,12 @@ ENV NB_USER="root"
 ##############################################################################
 # COPY config files
 ##############################################################################
-COPY .config/start.sh /start.sh
-COPY .config/start-notebook.sh /usr/local/bin/
-COPY .config/bashrc/.bashrc $HOME/.bashrc
-COPY .config/bashrc/.bash_profile $HOME/.bash_profile
-COPY .config/scripts/clean-layer.sh /usr/bin/clean-layer.sh
-COPY .config/scripts/fix-permissions.sh /usr/bin/fix-permissions.sh
+COPY config/start.sh /start.sh
+COPY config/start-notebook.sh /usr/local/bin/
+COPY config/bashrc/.bashrc $HOME/.bashrc
+COPY config/bashrc/.bash_profile $HOME/.bash_profile
+COPY config/scripts/clean-layer.sh /usr/bin/clean-layer.sh
+COPY config/scripts/fix-permissions.sh /usr/bin/fix-permissions.sh
 
 ##############################################################################
 # Make folders and permission scripts
