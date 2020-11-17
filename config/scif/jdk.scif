@@ -1,5 +1,5 @@
 %appinstall jdk
 
-apt-get update && apt-get install -y --allow-unauthenticated --no-install-recommends openjdk-8-jdk maven
+apt-get update && apt-get install -y --allow-unauthenticated --no-install-recommends openjdk-11-jdk maven
 apt-get --fix-missing install && apt --fix-broken install
 clean-layer.sh
