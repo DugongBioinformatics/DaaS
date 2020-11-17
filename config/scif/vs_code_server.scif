@@ -1,4 +1,4 @@
-%appinstall vs conde server
+%appinstall vs code server
 
 COPY resources/tools/vs-code-server.sh $RESOURCES_PATH/tools/vs-code-server.sh
 RUN \
