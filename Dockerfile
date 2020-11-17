@@ -75,7 +75,7 @@ ENV VNC_COL_DEPTH=24
 # COPY config files
 ##############################################################################
 COPY config/start.sh /start.sh
-COPY config/start-notebook.sh /usr/local/bin/
+COPY config/jupyter/start-notebook.sh /usr/local/bin/
 COPY config/bashrc/.bashrc $HOME/.bashrc
 COPY config/bashrc/.bash_profile $HOME/.bash_profile
 COPY config/scripts/clean-layer.sh /usr/bin/clean-layer.sh
