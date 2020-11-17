@@ -1,6 +1,6 @@
 %appinstall vs code server
 
-COPY resources/tools/vs-code-server.sh $RESOURCES_PATH/tools/vs-code-server.sh
+COPY config/tools/vs-code-server.sh $RESOURCES_PATH/tools/vs-code-server.sh
 RUN \
     /bin/bash $RESOURCES_PATH/tools/vs-code-server.sh --install && \
     # Cleanup
