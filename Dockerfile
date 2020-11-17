@@ -134,7 +134,6 @@ RUN apt-get update \
     && chmod +x /usr/local/bin/start-notebook.sh \
     && chmod -R a+rwx /usr/local/bin/ \
     && fix-permissions.sh $HOME \
-    && clean-layer.sh \
     && \
 ##############################################################################
 # Install Miniconda dependencies
