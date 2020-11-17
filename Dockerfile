@@ -89,6 +89,7 @@ COPY config/scripts/fix-permissions.sh /usr/bin/fix-permissions.sh
 COPY config/scif/config_conda.scif /root/.packages/
 COPY config/scif/cuda.scif /root/.packages/
 COPY config/scif/cdnn.scif /root/.packages/
+COPY config/scif/ssh.scif /root/.packages/
 ##############################################################################
 # Make folders and permission scripts
 ##############################################################################
@@ -128,7 +129,7 @@ RUN apt-get update \
     libxrender1 libzmq3-dev protobuf-compiler libprotobuf-dev libprotoc-dev autoconf libtool \
     fonts-liberation google-perftools gzip unzip lzop bsdtar zlibc unp libbz2-dev liblzma-dev \
     zlib1g-dev liblapack-dev libatlas-base-dev libeigen3-dev libblas-dev libhdf5-dev libtesseract-dev \
-    openssh-client openssh-server sslh autossh mussh libjpeg-turbo8-dev \
+    libjpeg-turbo8-dev \
     && apt-get clean && apt-get autoclean && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/ \
     && echo "LC_ALL=en_US.UTF-8" >> /etc/environment \
@@ -179,7 +180,8 @@ RUN python -m pip --no-cache-dir install --upgrade scif \
 ##############################################################################
     scif install $HOME/.packages/config_conda.scif \
     && scif install $HOME/.packages/cuda.scif \
-    && scif install $HOME/.packages/cdnn.scif
+    && scif install $HOME/.packages/cdnn.scif \
+    && scif install $HOME/.packages/ssh.scif
 
 EXPOSE 6000
 EXPOSE 8888
