@@ -172,7 +172,7 @@ ENV CONDA_DEFAULT_ENV $conda_env
 # Install Scif
 ##############################################################################
 RUN python -m pip --no-cache-dir install --upgrade scif \
-    && conda clean -tipy 
+    && conda clean -tipy \
     && \
 ##############################################################################
 # Install packages through Scif
