@@ -83,6 +83,7 @@ COPY config/bashrc/.bashrc $HOME/.bashrc
 COPY config/bashrc/.bash_profile $HOME/.bash_profile
 COPY config/scripts/clean-layer.sh /usr/bin/clean-layer.sh
 COPY config/scripts/fix-permissions.sh /usr/bin/fix-permissions.sh
+COPY config/nginx/lua-extensions /etc/nginx/nginx_plugins
 ##############################################################################
 # COPY packages files
 ##############################################################################
@@ -186,7 +187,6 @@ RUN python -m pip --no-cache-dir install --upgrade scif \
     && scif install $HOME/.packages/nginx.scif
     
 ENV PATH=/usr/local/openresty/nginx/sbin:$PATH
-COPY config/nginx/lua-extensions /etc/nginx/nginx_plugins
 
 EXPOSE 6000
 EXPOSE 8888
