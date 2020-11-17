@@ -27,7 +27,6 @@ if [ -x "$(command -v conda)" ]; then
     # Full Conda Cleanup
     conda clean --all -f -y
     # Remove source cache files
-    conda build purge-all
     if [ -d $CONDA_DIR ]; then
         # Cleanup python bytecode files - not needed: https://jcrist.github.io/conda-docker-tips.html
         find $CONDA_DIR -type f -name '*.pyc' -delete
