@@ -98,6 +98,7 @@ COPY config/scif/jdk.scif /root/.packages/
 COPY config/scif/xfce4.scif /root/.packages/
 COPY config/scif/rdp.scif /root/.packages/
 COPY config/scif/supervisor.scif /root/.packages/
+COPY config/scif/novnc.scif /root/.packages/
 
 ##############################################################################
 # Make folders and permission scripts
@@ -196,7 +197,8 @@ RUN python -m pip --no-cache-dir install --upgrade scif \
     && scif install $HOME/.packages/jdk.scif \
     && scif install $HOME/.packages/xfce4.scif \
     && scif install $HOME/.packages/rdp.scif \
-    && scif install $HOME/.packages/supervisor.scif
+    && scif install $HOME/.packages/supervisor.scif \
+    && scif install $HOME/.packages/novnc.scif
 
 ENV PATH=/usr/local/openresty/nginx/sbin:$PATH
 ENV PATH=/opt/node/bin:$PATH
