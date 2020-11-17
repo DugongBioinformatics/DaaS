@@ -95,6 +95,8 @@ COPY config/scif/ssh.scif /root/.packages/
 COPY config/scif/nginx.scif /root/.packages/
 COPY config/scif/nodejs.scif /root/.packages/
 COPY config/scif/jdk.scif /root/.packages/
+COPY config/scif/xfce4.scif /root/.packages/
+COPY config/scif/rdp.scif /root/.packages/
 
 ##############################################################################
 # Make folders and permission scripts
@@ -191,6 +193,9 @@ RUN python -m pip --no-cache-dir install --upgrade scif \
     && scif install $HOME/.packages/nginx.scif \
     && scif install $HOME/.packages/nodejs.scif \
     && scif install $HOME/.packages/jdk.scif \
+    && scif install $HOME/.packages/xfce4.scif \
+    && scif install $HOME/.packages/rdp.scif \
+
     
     
 ENV PATH=/usr/local/openresty/nginx/sbin:$PATH
