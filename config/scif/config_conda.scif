@@ -18,7 +18,6 @@ conda install -c anaconda conda-build -y && \
     # find /opt/conda/ -follow -type f -name '*.js.map' -delete && \
     $CONDA_DIR/bin/conda clean -y --packages && \
     $CONDA_DIR/bin/conda clean -y --all -f  && \
-    $CONDA_DIR/bin/conda build purge-all && \
     # Fix permissions
     fix-permissions.sh $CONDA_DIR && \
     clean-layer.sh
