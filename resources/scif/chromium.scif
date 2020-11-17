@@ -1,7 +1,0 @@
-%appinstall chromium 
-
-apt-get install -y --allow-unauthenticated --no-install-recommends chromium-browser chromium-browser-l10n \
-chromium-codecs-ffmpeg
-ln -s /usr/bin/chromium-browser /usr/bin/google-chrome
-apt-get --fix-missing install && apt --fix-broken install
-clean-layer.sh
