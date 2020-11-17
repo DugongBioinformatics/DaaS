@@ -133,12 +133,12 @@ RUN apt-get update \
     && chmod +x /start.sh \
     && chmod +x /usr/local/bin/start-notebook.sh \
     && chmod -R a+rwx /usr/local/bin/ \
-    && fix-permissions.sh $HOME \
-    && \
+    && fix-permissions.sh $HOME
+    
 ##############################################################################
 # Install Miniconda dependencies
 ##############################################################################
-    wget --quiet https://repo.anaconda.com/miniconda/${PYTHON3_VERSION}-Linux-x86_64.sh \
+RUN wget --quiet https://repo.anaconda.com/miniconda/${PYTHON3_VERSION}-Linux-x86_64.sh \
     && /bin/bash ${PYTHON3_VERSION}-Linux-x86_64.sh -b -p ${CONDA_DIR} \
     && rm ${PYTHON3_VERSION}-Linux-x86_64.sh \
     && /bin/bash -c "exec $SHELL -l" \
