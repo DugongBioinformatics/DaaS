@@ -113,7 +113,7 @@ RUN apt-get update \
     apt-transport-https gnupg-agent gpg-agent gnupg2 pkg-config software-properties-common \
     lsof net-tools libcurl4 wget cron iproute2 psmisc tmux dpkg-sig uuid-dev csh xclip clinfo \
     libgdbm-dev libncurses5-dev gawk swig graphviz libgraphviz-dev screen nano locate sqlite3 \
-    xmlstarlet libspatialindex-dev yara libhiredis-dev libpq-dev libmysqlclient-dev libmariadbclient-dev \
+    xmlstarlet libspatialindex-dev yara libhiredis-dev libpq-dev libmysqlclient-dev \
     libleptonica-dev libgeos-dev less tree bash-completion iputils-ping jq rsync subversion jed \
     unixodbc unixodbc-dev libtiff-dev libjpeg-dev libglib2.0-0 libxext6 libsm6 libxext-dev \
     libxrender1 libzmq3-dev protobuf-compiler libprotobuf-dev libprotoc-dev autoconf libtool \
