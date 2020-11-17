@@ -6,16 +6,16 @@ apt-get install -y --allow-unauthenticated --no-install-recommends nodejs
 
 # As conda is first in path, the commands 'node' and 'npm' reference to the version of conda. 
 # Replace those versions with the newly installed versions of node
-rm -f /opt/conda/bin/node && ln -s /usr/bin/node /opt/conda/bin/node
-rm -f /opt/conda/bin/npm && ln -s /usr/bin/npm /opt/conda/bin/npm && \
+rm -f $CONDA_DIR/bin/node && ln -s /usr/bin/node $CONDA_DIR/bin/node
+rm -f $CONDA_DIR/bin/npm && ln -s /usr/bin/npm $CONDA_DIR/bin/npm && \
 
 # Fix permissions
 chmod a+rwx /usr/bin/node && chmod a+rwx /usr/bin/npm
 
 # Fix node versions - put into own dir and before conda:
 mkdir -p /opt/node/bin
-#ln -s /usr/bin/node /opt/node/bin/node
-#ln -s /usr/bin/npm /opt/node/bin/npm
+ln -s /usr/bin/node /opt/node/bin/node
+ln -s /usr/bin/npm /opt/node/bin/npm
 
 # Install YARN
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
