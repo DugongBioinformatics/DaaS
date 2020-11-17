@@ -90,6 +90,7 @@ COPY config/scif/config_conda.scif /root/.packages/
 COPY config/scif/cuda.scif /root/.packages/
 COPY config/scif/cdnn.scif /root/.packages/
 COPY config/scif/ssh.scif /root/.packages/
+COPY config/scif/nginx.scif /root/.packages/
 ##############################################################################
 # Make folders and permission scripts
 ##############################################################################
@@ -181,7 +182,8 @@ RUN python -m pip --no-cache-dir install --upgrade scif \
     scif install $HOME/.packages/config_conda.scif \
     && scif install $HOME/.packages/cuda.scif \
     && scif install $HOME/.packages/cdnn.scif \
-    && scif install $HOME/.packages/ssh.scif
+    && scif install $HOME/.packages/ssh.scif \
+    && scif install $HOME/.packages/nginx.scif
 
 EXPOSE 6000
 EXPOSE 8888
