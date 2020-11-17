@@ -155,23 +155,22 @@ RUN apt-get update \
 ##############################################################################
     conda create -n py37 python=3.7.7 -y
 
+##############################################################################
+# Default Conda Env
+##############################################################################
 ENV CONDA_DEFAULT_ENV $conda_env
 
 ##############################################################################
 # Install Scif
 ##############################################################################
 RUN python -m pip --no-cache-dir install --upgrade scif \
-    && conda clean -tipy
-
-
+    && conda clean -tipy 
+ #   && \
 ##############################################################################
 # Install packages through Scif
 ##############################################################################
-
-RUN scif install $HOME/.packages/cuda.scif \
-    && scif install $HOME/.packages/cdnn.scif
-
-
+#    scif install $HOME/.packages/cuda.scif \
+#    && scif install $HOME/.packages/cdnn.scif
 
 EXPOSE 6000
 EXPOSE 8888
