@@ -14,8 +14,8 @@ chmod a+rwx /usr/bin/node && chmod a+rwx /usr/bin/npm
 
 # Fix node versions - put into own dir and before conda:
 mkdir -p /opt/node/bin
-ln -s /usr/bin/node /opt/node/bin/node
-ln -s /usr/bin/npm /opt/node/bin/npm
+#ln -s /usr/bin/node /opt/node/bin/node
+#ln -s /usr/bin/npm /opt/node/bin/npm
 
 # Install YARN
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
@@ -23,10 +23,10 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 apt-get update && apt-get install -y --allow-unauthenticated --no-install-recommends yarn
 
 # Install typescript 
-/usr/bin/npm install -g typescript && \
+npm install -g typescript && \
 
 # Install webpack - 32 MB
-/usr/bin/npm install -g webpack
+npm install -g webpack
 
 apt-get --fix-missing install && apt --fix-broken install
 clean-layer.sh
