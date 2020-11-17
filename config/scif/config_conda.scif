@@ -1,6 +1,7 @@
 %appinstall config_conda
 
 # Add conda forge - Append so that conda forge has lower priority than the main channel
+conda install -c anaconda conda-build -y && \
     $CONDA_DIR/bin/conda config --system --append channels conda-forge && \
     $CONDA_DIR/bin/conda config --system --set auto_update_conda false && \
     $CONDA_DIR/bin/conda config --system --set show_channel_urls true && \
