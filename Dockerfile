@@ -84,6 +84,10 @@ COPY config/bashrc/.bash_profile $HOME/.bash_profile
 COPY config/scripts/clean-layer.sh /usr/bin/clean-layer.sh
 COPY config/scripts/fix-permissions.sh /usr/bin/fix-permissions.sh
 ##############################################################################
+# COPY packages files
+##############################################################################
+COPY config/scif/config_conda.scif /root/.packages/
+##############################################################################
 # Make folders and permission scripts
 ##############################################################################
 RUN chmod a+rwx /usr/bin/clean-layer.sh \
@@ -167,11 +171,12 @@ ENV CONDA_DEFAULT_ENV $conda_env
 ##############################################################################
 RUN python -m pip --no-cache-dir install --upgrade scif \
     && conda clean -tipy 
- #   && \
+    && \
 ##############################################################################
 # Install packages through Scif
 ##############################################################################
-#    scif install $HOME/.packages/cuda.scif \
+    scif install /root/.packages/config_conda.scif
+# $HOME/.packages/cuda.scif \
 #    && scif install $HOME/.packages/cdnn.scif
 
 EXPOSE 6000
