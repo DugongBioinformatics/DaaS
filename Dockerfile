@@ -184,6 +184,8 @@ RUN python -m pip --no-cache-dir install --upgrade scif \
     && scif install $HOME/.packages/cdnn.scif \
     && scif install $HOME/.packages/ssh.scif \
     && scif install $HOME/.packages/nginx.scif
+    
+ENV PATH=/usr/local/openresty/nginx/sbin:$PATH
 
 EXPOSE 6000
 EXPOSE 8888
