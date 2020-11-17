@@ -196,7 +196,7 @@ RUN python -m pip --no-cache-dir install --upgrade scif \
     && scif install $HOME/.packages/jdk.scif \
     && scif install $HOME/.packages/xfce4.scif \
     && scif install $HOME/.packages/rdp.scif \
-    && scif install $HOME/.packages/supervisor.scif \
+    && scif install $HOME/.packages/supervisor.scif
 
 ENV PATH=/usr/local/openresty/nginx/sbin:$PATH
 ENV PATH=/opt/node/bin:$PATH
