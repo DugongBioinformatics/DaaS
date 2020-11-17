@@ -31,7 +31,6 @@ ENV TERM="xterm"
 ENV HOME /root
 ENV USER_GID=0
 ENV DEBIAN_FRONTEND noninteractive
-ENV PATH $CONDA_DIR:$CONDA_DIR/bin:$PATH
 ENV CUDA_VERSION 10.1.168
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
@@ -71,6 +70,10 @@ ENV NB_USER="root"
 ENV VNC_PW=vncpassword
 ENV VNC_RESOLUTION=1600x900
 ENV VNC_COL_DEPTH=24
+##############################################################################
+# PATH
+##############################################################################
+ENV PATH $CONDA_DIR:$CONDA_DIR/bin:$PATH
 ##############################################################################
 # COPY config files
 ##############################################################################
