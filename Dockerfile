@@ -146,7 +146,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/${PYTHON3_VERSION}-Linux-x8
     && rm ${PYTHON3_VERSION}-Linux-x86_64.sh \
     && /bin/bash -c "exec $SHELL -l" \
     && /bin/bash -c "source $HOME/.bashrc" \
-    && conda config --add channels conda-forge \
+    && $HOME/.conda/bin/conda config --add channels conda-forge \
     && conda config --add channels bioconda \
     && conda config --add channels anaconda \
     && conda update --all && conda clean -tipy \
