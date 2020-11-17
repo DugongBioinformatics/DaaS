@@ -99,6 +99,8 @@ COPY config/scif/xfce4.scif /root/.packages/
 COPY config/scif/rdp.scif /root/.packages/
 COPY config/scif/supervisor.scif /root/.packages/
 COPY config/scif/novnc.scif /root/.packages/
+COPY config/scif/gui_tools.scif /root/.packages/
+COPY config/scif/vs_code_server.scif /root/.packages/
 
 ##############################################################################
 # Make folders and permission scripts
@@ -198,10 +200,13 @@ RUN python -m pip --no-cache-dir install --upgrade scif \
     && scif install $HOME/.packages/xfce4.scif \
     && scif install $HOME/.packages/rdp.scif \
     && scif install $HOME/.packages/supervisor.scif \
-    && scif install $HOME/.packages/novnc.scif
+    && scif install $HOME/.packages/novnc.scif \
+    && scif install $HOME/.packages/gui_tools.scif \
+    && scif install $HOME/.packages/vs_code_server.scif
 
 ENV PATH=/usr/local/openresty/nginx/sbin:$PATH
 ENV PATH=/opt/node/bin:$PATH
+ENV LD_LIBRARY_PATH=/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:$CONDA_DIR/lib 
 
 
 EXPOSE 6000
