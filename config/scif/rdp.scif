@@ -1,0 +1,7 @@
+%appinstall rdp
+
+apt-get update && apt-get install -y --allow-unauthenticated --no-install-recommends xrdp
+sudo sed -i.bak '/fi/a #xrdp multiple users configuration \n xfce-session \n' /etc/xrdp/startwm.sh && \
+cd /etc/xrdp/ && xrdp-keygen xrdp
+apt-get --fix-missing install && apt --fix-broken install
+clean-layer.sh && fix-permissions.sh

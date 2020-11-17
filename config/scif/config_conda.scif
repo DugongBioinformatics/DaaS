@@ -1,0 +1,23 @@
+%appinstall config_conda
+
+# Add conda forge - Append so that conda forge has lower priority than the main channel
+    $CONDA_DIR/bin/conda config --system --append channels conda-forge && \
+    $CONDA_DIR/bin/conda config --system --set auto_update_conda false && \
+    $CONDA_DIR/bin/conda config --system --set show_channel_urls true && \
+    # Update selected packages - install python 3.7.3
+    $CONDA_DIR/bin/conda install -y --update-all python=3.7.3 && \
+    # Link Conda
+    ln -s $CONDA_DIR/bin/python /usr/local/bin/python && \
+    ln -s $CONDA_DIR/bin/conda /usr/bin/conda && \
+    # Update pip
+    $CONDA_DIR/bin/pip install --upgrade pip && \
+    chmod -R a+rwx /usr/local/bin/ && \
+    # Cleanup - Remove all here since conda is not in path as of now
+    # find /opt/conda/ -follow -type f -name '*.a' -delete && \
+    # find /opt/conda/ -follow -type f -name '*.js.map' -delete && \
+    $CONDA_DIR/bin/conda clean -y --packages && \
+    $CONDA_DIR/bin/conda clean -y --all -f  && \
+    $CONDA_DIR/bin/conda build purge-all && \
+    # Fix permissions
+    fix-permissions.sh $CONDA_DIR && \
+    clean-layer.sh

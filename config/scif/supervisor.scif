@@ -1,0 +1,6 @@
+%appinstall supervisor
+
+mkdir -p /var/run/sshd && chmod 400 /var/run/sshd
+pip install --no-cache-dir --upgrade supervisor supervisor-stdout
+mkdir -p /var/log/supervisor/
+clean-layer.sh

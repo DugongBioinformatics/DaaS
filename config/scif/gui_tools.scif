@@ -1,0 +1,8 @@
+%appinstall gui_tools
+
+apt-get install -y --allow-unauthenticated --no-install-recommends gdebi catfish gnome-search-tool font-manager \
+thunar-vcs-plugin glogg baobab mousepad p7zip p7zip-rar thunar-archive-plugin sqlitebrowser nautilus gvfs-backends \
+gigolo gvfs-bi gftp
+apt-get remove -y app-install-data gnome-user-guide
+apt-get --fix-missing install && apt --fix-broken install
+clean-layer.sh

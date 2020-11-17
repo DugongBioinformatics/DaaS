@@ -1,0 +1,7 @@
+%appinstall python
+
+conda install --quiet --yes numpy pandas dask-core plotly pyyaml scikit-image scikit-learn scipy seaborn sqlalchemy \
+statsmodels sympy xarray xlrd numexpr numba networkx matplotlib ipywidgets hdf5 h5py dill cython cloudpickle bokeh \
+blas openblas
+
+conda update --all && conda clean -tipsy
