@@ -186,6 +186,7 @@ RUN python -m pip --no-cache-dir install --upgrade scif \
     && scif install $HOME/.packages/nginx.scif
     
 ENV PATH=/usr/local/openresty/nginx/sbin:$PATH
+COPY config/nginx/lua-extensions /etc/nginx/nginx_plugins
 
 EXPOSE 6000
 EXPOSE 8888
