@@ -87,6 +87,8 @@ COPY config/scripts/fix-permissions.sh /usr/bin/fix-permissions.sh
 # COPY packages files
 ##############################################################################
 COPY config/scif/config_conda.scif /root/.packages/
+COPY config/scif/cuda.scif /root/.packages/
+COPY config/scif/cdnn.scif /root/.packages/
 ##############################################################################
 # Make folders and permission scripts
 ##############################################################################
@@ -175,9 +177,9 @@ RUN python -m pip --no-cache-dir install --upgrade scif \
 ##############################################################################
 # Install packages through Scif
 ##############################################################################
-    scif install /root/.packages/config_conda.scif
-# $HOME/.packages/cuda.scif \
-#    && scif install $HOME/.packages/cdnn.scif
+    scif install $HOME/.packages/config_conda.scif \
+    && scif install $HOME/.packages/cuda.scif \
+    && scif install $HOME/.packages/cdnn.scif
 
 EXPOSE 6000
 EXPOSE 8888
