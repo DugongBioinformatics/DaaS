@@ -4,8 +4,8 @@
     $CONDA_DIR/bin/conda config --system --append channels conda-forge && \
     $CONDA_DIR/bin/conda config --system --set auto_update_conda false && \
     $CONDA_DIR/bin/conda config --system --set show_channel_urls true && \
-    # Update selected packages - install python 3.7.3
-    $CONDA_DIR/bin/conda install -y --update-all python=3.7.3 && \
+    # Update selected packages - install python 3.7.7
+    $CONDA_DIR/bin/conda install -y --update-all python=3.7.7 && \
     # Link Conda
     ln -s $CONDA_DIR/bin/python /usr/local/bin/python && \
     ln -s $CONDA_DIR/bin/conda /usr/bin/conda && \
