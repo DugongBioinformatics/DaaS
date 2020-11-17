@@ -1,0 +1,4 @@
+%appinstall cdnn
+
+conda install -c anaconda cudnn -y
+conda clean -tipy
