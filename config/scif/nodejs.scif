@@ -1,7 +1,7 @@
 %appinstall nodejs
 
 apt-get update
-curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 apt-get install -y --allow-unauthenticated --no-install-recommends nodejs
 
 # As conda is first in path, the commands 'node' and 'npm' reference to the version of conda. 
