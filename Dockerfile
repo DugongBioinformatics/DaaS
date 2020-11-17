@@ -119,7 +119,7 @@ RUN apt-get update \
     libxrender1 libzmq3-dev protobuf-compiler libprotobuf-dev libprotoc-dev autoconf libtool \
     fonts-liberation google-perftools gzip unzip lzop bsdtar zlibc unp libbz2-dev liblzma-dev \
     zlib1g-dev liblapack-dev libatlas-base-dev libeigen3-dev libblas-dev libhdf5-dev libtesseract-dev \
-    libjpeg-turbo openssh-client openssh-server sslh autossh mussh \
+    openssh-client openssh-server sslh autossh mussh \
     && apt-get clean && apt-get autoclean && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/ \
     && echo "LC_ALL=en_US.UTF-8" >> /etc/environment \
