@@ -1,0 +1,4 @@
+%appinstall cuda
+
+conda install -c anaconda cudatoolkit -y
+conda clean -tipy
